@@ -1,0 +1,50 @@
+import React from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import PaginaInicial from '../home/Home';
+import Perfil from '../perfil/Perfil';
+import Definicoes from '../definicoes/Definicoes';
+import Horario from '../horarios/Horario';
+import CalendarioLetivo from '../calendarioLetivo/CalendarioLetivo';
+import PlanosCurriculares from '../planosCurriculares/PlanosCurriculares';
+
+const Tab = createBottomTabNavigator();
+
+const hiddenTabs = ['Horário', 'Calendário Letivo', 'Planos Curriculares'];
+
+const TabRouting = props => {
+  // Content of the component
+
+  return (
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
+
+          if (route.name === 'Resumo') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Definições') {
+            iconName = focused ? 'settings' : 'settings-outline';
+          } else if (route.name === 'Perfil') {
+            iconName = focused ? 'person' : 'person-outline';
+          }
+
+          // You can return any component that you like here!
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarButton: hiddenTabs.includes(route.name) ? () => null : undefined,
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray',
+        headerShown: false,
+      })}>
+      <Tab.Screen name="Resumo" component={PaginaInicial} />
+      <Tab.Screen name="Perfil" component={Perfil} />
+      <Tab.Screen name="Definições" component={Definicoes} />
+      <Tab.Screen name="Horário" component={Horario} />
+      <Tab.Screen name="Calendário Letivo" component={CalendarioLetivo} />
+      <Tab.Screen name="Planos Curriculares" component={PlanosCurriculares} />
+    </Tab.Navigator>
+  );
+};
+
+export default TabRouting;
