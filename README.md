@@ -11,3 +11,13 @@ Comandos:
 
 //criar nova branch
 git checkout -b nomedaBranch
+
+//criar nova branch sobre a branch developer
+git checkout -b nomedafeature developer
+
+//como dar merge da feature
+git merge --no-ff
+
+---------------------------- Componentes -----------------------------
+
+Routing - Guarda todos os componentes e respetiva lógica de routing da App.

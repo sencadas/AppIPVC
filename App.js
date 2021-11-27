@@ -1,22 +1,12 @@
+import 'react-native-gesture-handler';
 import React from 'react';
+import Routing from './components/routing/Routing';
+import {LogBox} from 'react-native';
 
-import {Text, StatusBar, StyleSheet, View} from 'react-native';
+LogBox.ignoreLogs(['Reanimated 2']);
 
 const App = () => {
-  return (
-    <View style={styles.container}>
-      <StatusBar barStyle="dark-content" />
-      <Text>Hello World</Text>
-    </View>
-  );
+  return <Routing />;
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default App;
