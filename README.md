@@ -33,6 +33,8 @@ Passos:
 
 4. git branch -d nomedafeature
 
+5. git push origin develop
+
 ---------------------------- Componentes -----------------------------
 
 Routing - Guarda todos os componentes e respetiva lógica de routing da App.
