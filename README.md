@@ -1,7 +1,7 @@
 # AppIPVC
 
 ---------------------- Git ---------------------
-olá xD
+
 Nota:
 
 - Versões são controladas no master branch(versões deployes)
@@ -38,6 +38,10 @@ Passos:
    //apagar os locals
 
 6. git push --delete origin myFeature
+
+//However, by default, git fetch does not remove remote branches that no longer have a counterpart branch on the remote. In order to do that, you explicitly need to prune the list of remote branches:
+
+7. git fetch --prune
 
 ---------------------------- Componentes -----------------------------
 
