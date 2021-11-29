@@ -39,10 +39,6 @@ Passos:
 
 6. git push --delete origin myFeature
 
-//However, by default, git fetch does not remove remote branches that no longer have a counterpart branch on the remote. In order to do that, you explicitly need to prune the list of remote branches:
-
-7. git fetch --prune
-
 ---------------------------- Componentes -----------------------------
 
 Routing - Guarda todos os componentes e respetiva lógica de routing da App.
