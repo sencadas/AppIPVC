@@ -27,8 +27,9 @@ build/
 .idea
 .gradle
 local.properties
-build.gradle
-#android/build.gradle
+
+#new Ignores Versions of gradle
+android/build.gradle
 android/gradle/wrapper/gradle-wrapper.properties
 
 *.iml
