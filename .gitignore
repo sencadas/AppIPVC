@@ -27,6 +27,10 @@ build/
 .idea
 .gradle
 local.properties
+build.gradle
+#android/build.gradle
+android/gradle/wrapper/gradle-wrapper.properties
+
 *.iml
 *.hprof
 
@@ -58,5 +62,3 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
-android/build.gradle
-android/gradle/wrapper/gradle-wrapper.properties
