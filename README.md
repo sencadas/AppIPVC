@@ -35,6 +35,10 @@ Passos:
 
 5. git push origin develop
 
+   //apagar os locals
+
+6. git push --delete origin myFeature
+
 ---------------------------- Componentes -----------------------------
 
 Routing - Guarda todos os componentes e respetiva lógica de routing da App.
