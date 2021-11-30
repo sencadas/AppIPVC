@@ -1,16 +1,10 @@
 import React from 'react';
-import {View, Button} from 'react-native';
-import {useDispatch} from 'react-redux';
-import {LogoutAction} from '../../store/actions';
+import {View, Text} from 'react-native';
 
 const Definicoes = () => {
-  const dispatch = useDispatch();
-  const submit = () => {
-    dispatch(LogoutAction());
-  };
   return (
     <View>
-      <Button title="Sair" onPress={submit} />
+      <Text>Definicoes!</Text>
     </View>
   );
 };
