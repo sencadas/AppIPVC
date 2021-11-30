@@ -19,6 +19,9 @@ git checkout -b nomedafeature developer
 //como dar merge da feature
 git merge --no-ff
 
+//Ver log das branchs
+git log --all --decorate --oneline --graph
+
 Passos:
 
 1. git checkout -b nomedafeature developer
