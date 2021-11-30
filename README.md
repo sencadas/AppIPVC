@@ -22,7 +22,10 @@ git merge --no-ff
 //Ver log das branchs
 git log --all --decorate --oneline --graph
 
-Passos:
+//Ver todas as branchs
+git branch -r
+
+Passos para um bom commit:
 
 1. git checkout -b nomedafeature developer
 
