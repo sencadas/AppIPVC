@@ -1,7 +1,7 @@
-import express from "express";
-import cors from "cors";
+import express from 'express';
+import cors from 'cors';
 //este import representa o export default da rota , neste caso representa o router
-import aulas from "./api/aulas.route.js";
+import rotas from './api/rotas.route.js';
 
 const app = express();
 
@@ -9,8 +9,8 @@ app.use(cors());
 app.use(express.json());
 
 //routes da app
-app.use("/api/aulas", aulas);
+app.use('/api/', rotas);
 //se for para uma pagina que nao exista no route file
-app.use("*", (req, res) => res.status(404).json({ error: "not found" }));
+app.use('*', (req, res) => res.status(404).json({error: 'not found'}));
 
 export default app;
