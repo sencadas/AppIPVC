@@ -12,7 +12,7 @@ const Login = () => {
   };
   return (
     <View style={styles.container}>
-      <Text>Login Page</Text>
+      <Text>Login Page (apenas clicar em entrar)</Text>
       <TextInput
         style={styles.input}
         placeholder="Utilizador"
@@ -25,7 +25,9 @@ const Login = () => {
         value={password}
         onChangeText={text => setPassword(text)}
       />
-      <Button title="Entrar" onPress={submit} />
+      <View style={styles.button}>
+        <Button title="Entrar" onPress={submit} />
+      </View>
     </View>
   );
 };
@@ -42,6 +44,10 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+    width: '90%',
+  },
+  button: {
+    width: '90%',
   },
 });
 
