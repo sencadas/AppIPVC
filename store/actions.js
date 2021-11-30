@@ -5,3 +5,10 @@ export const LoginAction = (username, password) => {
     payload: token,
   };
 };
+
+export const LogoutAction = () => {
+  return {
+    type: 'LOGOUT',
+    payload: null,
+  };
+};
