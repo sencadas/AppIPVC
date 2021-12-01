@@ -5,7 +5,7 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import {useDispatch} from 'react-redux';
-import {LogoutAction} from '../../store/actions';
+import {LogoutAction} from '../../store/auth/actions';
 
 const DrawerContent = props => {
   const {navigation} = props;

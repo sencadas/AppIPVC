@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, StyleSheet, Button} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {LoginAction} from '../../store/actions';
+import {LoginAction} from '../../store/auth/actions';
 
 const Login = () => {
   const [username, setUsername] = useState('');

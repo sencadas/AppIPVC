@@ -1,6 +1,6 @@
 export const LoginAction = (username, password) => {
   let token = null;
-  //verificar password
+  //verificar password (provisório)
   if (username === '' && password === '') {
     token = username + password;
   }

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import DrawerNavigation from './DrawerNavigation';
 import Login from '../login/Login';
-import {store} from '../../store';
+import {store} from '../../store/store.js';
 import {Provider, useSelector} from 'react-redux';
 
 const Auth = () => {
