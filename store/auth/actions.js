@@ -5,7 +5,6 @@ export const LoginAction = (username, password) => {
     token = username + password;
   }
 
-  console.log(token);
   return {
     type: 'LOGIN',
     payload: token,
