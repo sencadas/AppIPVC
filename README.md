@@ -39,7 +39,7 @@ Passos para um bom commit:
 
 4. git branch -d nomedafeature
 
-5. git push origin develop
+5. git push origin developer
 
    //apagar os locals
 
