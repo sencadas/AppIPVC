@@ -4,9 +4,13 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
+import {useDispatch} from 'react-redux';
+import {LogoutAction} from '../../store/auth/actions';
 
 const DrawerContent = props => {
   const {navigation} = props;
+
+  const dispatch = useDispatch();
 
   return (
     <DrawerContentScrollView {...props}>
@@ -27,6 +31,13 @@ const DrawerContent = props => {
         label="Planos Curriculares"
         onPress={() => {
           navigation.navigate('Planos Curriculares');
+        }}
+      />
+
+      <DrawerItem
+        label="Sair"
+        onPress={() => {
+          dispatch(LogoutAction());
         }}
       />
     </DrawerContentScrollView>

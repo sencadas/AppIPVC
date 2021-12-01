@@ -4,7 +4,7 @@ import {View, Text} from 'react-native';
 const Definicoes = () => {
   return (
     <View>
-      <Text>Definicoes</Text>
+      <Text>Definicoes!</Text>
     </View>
   );
 };

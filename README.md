@@ -1,6 +1,7 @@
 # AppIPVC
 
 ---------------------- Git ---------------------
+
 Nota:
 
 - Versões são controladas no master branch(versões deployes)
@@ -18,7 +19,13 @@ git checkout -b nomedafeature developer
 //como dar merge da feature
 git merge --no-ff
 
-Passos:
+//Ver log das branchs
+git log --all --decorate --oneline --graph
+
+//Ver todas as branchs
+git branch -r
+
+Passos para um bom commit:
 
 1. git checkout -b nomedafeature developer
 
@@ -31,6 +38,12 @@ Passos:
 3. Verificar se o merge ficou bem feito
 
 4. git branch -d nomedafeature
+
+5. git push origin develop
+
+   //apagar os locals
+
+6. git push --delete origin myFeature
 
 ---------------------------- Componentes -----------------------------
 
