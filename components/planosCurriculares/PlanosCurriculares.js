@@ -19,11 +19,10 @@ const PlanosCurriculares = () => {
       .then(response => response.json())
       .then(json => {
         setData(json.planCurr);
-        //console.log(json);
       })
       .catch(error => {
-        //
-        console.log(error);
+        console.log('aqui');
+        throw error;
       })
       .finally(() => setLoading(false));
   }, []);
