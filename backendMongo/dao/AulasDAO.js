@@ -47,7 +47,6 @@ export default class AulasDAO {
       console.error(
         `Unable to convert cursor to array or problem counting documents, ${e}`,
       );
-      console.log('lista' + aulasList);
       return {aulasList: [], totalNumAulas: 0};
     }
   }

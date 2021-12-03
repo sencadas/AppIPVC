@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import AulasDAO from './dao/AulasDAO.js';
 import PlanCurrDAO from './dao/planCurrDAO.js';
 import CalendarioLetivoDAO from './dao/calendarioLetivoDAO.js';
+import LoginDAO from './dao/LoginDAO.js';
 
 dotenv.config();
 const MongoClient = mongodb.MongoClient;
@@ -24,6 +25,7 @@ MongoClient.connect(process.env.RESTAULAS_DB_URI, {
     await AulasDAO.injectDB(client);
     await PlanCurrDAO.injectDB(client);
     await CalendarioLetivoDAO.injectDB(client);
+    await LoginDAO.injectDB(client);
 
     app.listen(port, () => {
       console.log(`listening on port ${port}`);
