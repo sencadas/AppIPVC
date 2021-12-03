@@ -12,10 +12,10 @@ const Login = () => {
   };
   return (
     <View style={styles.container}>
-      <Text>Login Page (apenas clicar em entrar)</Text>
+      <Text>App IPVC</Text>
       <TextInput
         style={styles.input}
-        placeholder="Utilizador"
+        placeholder="Email"
         value={username}
         onChangeText={text => setUsername(text)}
       />
