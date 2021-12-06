@@ -1,12 +1,38 @@
-export const LoginAction = (username, password) => {
-  let token = null;
-  const URL = 'http://192.168.1.5:5000/api/Login/' + username + '/' + password;
-  let data = {};
-  console.log('email: ' + username);
-  console.log('password: ' + password);
+import {
+  FETCH_AUTH_FAILURE,
+  FETCH_AUTH_REQUEST,
+  FETCH_AUTH_SUCCESS,
+  LOGOUT,
+} from './types';
 
-  //Exemplo para post
-  /* const requestOptions = {
+export const fetchAuthRequest = () => {
+  return {
+    type: FETCH_AUTH_REQUEST,
+  };
+};
+export const fetchAuthSuccess = user => {
+  return {
+    type: FETCH_AUTH_SUCCESS,
+    payload: user,
+  };
+};
+export const fetchAuthFailure = error => {
+  return {
+    type: FETCH_AUTH_FAILURE,
+    payload: error,
+  };
+};
+export const logout = () => {
+  return {
+    type: LOGOUT,
+  };
+};
+
+export const LoginAction = (username, password) => {
+  const URL = 'http://192.168.1.4:5000/api/Login/' + username + '/' + password;
+  return dispatch => {
+    //Exemplo para post
+    /* const requestOptions = {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -17,32 +43,20 @@ export const LoginAction = (username, password) => {
       password: password,
     }),
   }; */
-  fetch(URL)
-    .then(response => response.json())
-    .then(json => {
-      data = json;
-    })
-    .catch(error => {
-      throw error;
-    });
-
-  //verificar password (provisório)
-  if (data.error !== 'not found') {
-    return {
-      type: 'LOGIN',
-      payload: null,
-    };
-  }
-
-  return {
-    type: 'LOGIN',
-    payload: data,
+    dispatch(fetchAuthRequest);
+    fetch(URL)
+      .then(response => response.json())
+      .then(json => {
+        dispatch(fetchAuthSuccess(json));
+      })
+      .catch(error => {
+        dispatch(fetchAuthFailure(error));
+      });
   };
 };
 
 export const LogoutAction = () => {
-  return {
-    type: 'LOGOUT',
-    payload: null,
+  return dispatch => {
+    dispatch(logout());
   };
 };

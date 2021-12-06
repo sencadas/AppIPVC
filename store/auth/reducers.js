@@ -1,17 +1,30 @@
 const initialState = {
-  authToken: null,
-  mensagem: null,
+  loading: false,
+  user: {},
+  error: '',
 };
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'LOGIN':
+    case 'FETCH_AUTH_REQUEST':
       return {
         ...state,
-        authToken: action.payload,
+        loading: true,
+      };
+    case 'FETCH_AUTH_SUCCESS':
+      return {
+        loading: false,
+        user: action.payload,
+        error: '',
+      };
+    case 'FETCH_AUTH_FAILURE':
+      return {
+        loading: false,
+        user: [],
+        error: action.payload,
       };
     case 'LOGOUT':
       return {
-        authToken: null,
+        ...initialState,
       };
     default:
       return state;

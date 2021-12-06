@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import DrawerNavigation from './DrawerNavigation';
 import Login from '../login/Login';
@@ -6,12 +6,10 @@ import {useSelector} from 'react-redux';
 
 const Routing = () => {
   //Provisório
-  const [isLoading, setIsLoading] = useState(true);
-  const token = useSelector(state => state.AuthReducers.authToken);
-
+  const user = useSelector(state => state.AuthReducers.user);
   return (
     <NavigationContainer>
-      {token === null ? <Login /> : <DrawerNavigation />}
+      {user._id === undefined ? <Login /> : <DrawerNavigation />}
     </NavigationContainer>
   );
 };
