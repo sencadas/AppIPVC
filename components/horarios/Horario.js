@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
 import {
   SafeAreaView,
@@ -15,7 +7,9 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
-import WeekView, {createFixedWeekDate} from 'react-native-week-view';
+import WeekView, {
+  createFixedWeekDate,
+} from './react-native-week-view-master/index.js';
 
 const generateDates = (hours, minutes) => {
   const date = new Date();
@@ -113,6 +107,7 @@ class Horario extends React.Component {
     });
   };
 
+  //isRefreshing - para colocar a variavel do isLoading
   render() {
     const {events, selectedDate} = this.state;
     return (
@@ -134,12 +129,12 @@ class Horario extends React.Component {
             eventContainerStyle={styles.eventContainer}
             formatDateHeader={showFixedComponent ? 'ddd' : 'ddd DD'}
             hoursInDisplay={12}
+            showNowLine={false}
             timeStep={60}
-            startHour={8}
+            startHour={9}
             weekStartsOn={1}
             fixedHorizontally={showFixedComponent}
             showTitle={!showFixedComponent}
-            showNowLine
             onDragEvent={this.onDragEvent}
             isRefreshing={false}
             RefreshComponent={MyRefreshComponent}
