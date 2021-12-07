@@ -37,7 +37,6 @@ export const Init = () => {
       name: await AsyncStorage.getItem('name'),
       type: await AsyncStorage.getItem('type'),
     };
-    console.log(user.email);
     if (user.email !== '') {
       dispatch(fetchAuthSuccess(user));
     }
@@ -73,7 +72,7 @@ export const LoginAction = (username, password) => {
           await AsyncStorage.setItem('name', name);
           await AsyncStorage.setItem('type', type);
         } catch (error) {
-          console.log(error);
+          console.log('Erro ao inserir no asyncStorage: ' + error);
         }
       })
       .catch(error => {
@@ -83,7 +82,8 @@ export const LoginAction = (username, password) => {
 };
 
 export const LogoutAction = () => {
-  return dispatch => {
+  return async dispatch => {
+    await AsyncStorage.clear();
     dispatch(logout());
   };
 };

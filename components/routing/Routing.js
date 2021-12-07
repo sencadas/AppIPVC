@@ -5,6 +5,7 @@ import Login from '../login/Login';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {Init} from '../../store/auth/actions';
+import {ActivityIndicator, View} from 'react-native';
 
 const Routing = () => {
   //Provisório
@@ -17,10 +18,16 @@ const Routing = () => {
     dispatch(Init());
   }, [dispatch]);
 
-  console.log(user);
+  if (user.loading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center'}}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
   return (
     <NavigationContainer>
-      {user.name === '' ? <Login /> : <DrawerNavigation />}
+      {user.name === null ? <Login /> : <DrawerNavigation />}
     </NavigationContainer>
   );
 };
