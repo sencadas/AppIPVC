@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   FETCH_AUTH_FAILURE,
   FETCH_AUTH_REQUEST,
@@ -28,8 +29,23 @@ export const logout = () => {
   };
 };
 
+export const Init = () => {
+  return async dispatch => {
+    dispatch(fetchAuthRequest());
+    const user = {
+      email: await AsyncStorage.getItem('email'),
+      name: await AsyncStorage.getItem('name'),
+      type: await AsyncStorage.getItem('type'),
+    };
+    console.log(user.email);
+    if (user.email !== '') {
+      dispatch(fetchAuthSuccess(user));
+    }
+  };
+};
+
 export const LoginAction = (username, password) => {
-  const URL = 'http://192.168.1.4:5000/api/Login/' + username + '/' + password;
+  const URL = 'http://192.168.1.8:5000/api/Login/' + username + '/' + password;
   return dispatch => {
     //Exemplo para post
     /* const requestOptions = {
@@ -46,8 +62,19 @@ export const LoginAction = (username, password) => {
     dispatch(fetchAuthRequest);
     fetch(URL)
       .then(response => response.json())
-      .then(json => {
+      .then(async json => {
+        const email = json.email;
+        const name = json.name;
+        const type = json.type;
+
         dispatch(fetchAuthSuccess(json));
+        try {
+          await AsyncStorage.setItem('email', email);
+          await AsyncStorage.setItem('name', name);
+          await AsyncStorage.setItem('type', type);
+        } catch (error) {
+          console.log(error);
+        }
       })
       .catch(error => {
         dispatch(fetchAuthFailure(error));

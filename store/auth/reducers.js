@@ -1,6 +1,9 @@
 const initialState = {
   loading: false,
-  user: {},
+  //referentes ao user logado
+  email: '',
+  name: '',
+  type: '',
   error: '',
 };
 export default (state = initialState, action) => {
@@ -13,7 +16,9 @@ export default (state = initialState, action) => {
     case 'FETCH_AUTH_SUCCESS':
       return {
         loading: false,
-        user: action.payload,
+        email: action.payload.email,
+        name: action.payload.name,
+        type: action.payload.type,
         error: '',
       };
     case 'FETCH_AUTH_FAILURE':
