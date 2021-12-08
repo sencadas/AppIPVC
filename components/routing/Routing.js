@@ -1,17 +1,33 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import DrawerNavigation from './DrawerNavigation';
 import Login from '../login/Login';
 import {useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {Init} from '../../store/auth/actions';
+import {ActivityIndicator, View} from 'react-native';
 
 const Routing = () => {
   //Provisório
-  const [isLoading, setIsLoading] = useState(true);
-  const token = useSelector(state => state.AuthReducers.authToken);
+  const user = useSelector(state => state.AuthReducers);
 
+  //Necessério para o login automático
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(Init());
+  }, [dispatch]);
+
+  if (user.loading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center'}}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
   return (
     <NavigationContainer>
-      {token === null ? <Login /> : <DrawerNavigation />}
+      {user.name === null ? <Login /> : <DrawerNavigation />}
     </NavigationContainer>
   );
 };
