@@ -75,7 +75,8 @@ export default class WeekView extends Component {
       );
 
       this.currentPageIndex = this.pageOffset;
-      this.setState({
+      this.setState(
+        {
           currentMoment: moment(initialDates[this.currentPageIndex]).toDate(),
           initialDates,
         },
@@ -89,7 +90,6 @@ export default class WeekView extends Component {
     }
   }
 
-
   componentWillUnmount() {
     this.eventsGridScrollX.removeAllListeners();
   }
@@ -97,9 +97,9 @@ export default class WeekView extends Component {
   calculateTimes = memoizeOne((minutesStep, formatTimeLabel) => {
     const times = [];
     const startOfDay = moment().startOf('day');
-    
+
     //neste timer escolhe se quantidade de horas por dia
-    for (let timer = 480; timer < MINUTES_IN_DAY; timer += minutesStep) {
+    for (let timer = 0; timer < MINUTES_IN_DAY; timer += minutesStep) {
       const time = startOfDay.clone().minutes(timer);
       times.push(time.format(formatTimeLabel));
     }
@@ -448,7 +448,8 @@ export default class WeekView extends Component {
           onStartShouldSetResponderCapture={() => false}
           onMoveShouldSetResponderCapture={() => false}
           onResponderTerminationRequest={() => false}
-          ref={this.verticalAgendaRef}>
+          ref={this.verticalAgendaRef}
+        >
           <View style={styles.scrollViewContent}>
             <Times
               times={times}

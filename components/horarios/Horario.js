@@ -5,64 +5,64 @@ import {
   StatusBar,
   Alert,
   ActivityIndicator,
+  Button,
 } from 'react-native';
 
-import WeekView, {
-  createFixedWeekDate,
-} from './react-native-week-view-master/index.js';
+import WeekView from './react-native-week-view-master/index.js';
 
-const generateDates = (hours, minutes) => {
-  const date = new Date();
-  date.setHours(date.getHours() + hours);
-  if (minutes != null) {
-    date.setMinutes(minutes);
-  }
-  return date;
-};
+const start = new Date('2021-12-15T11:00:00.000Z');
+
+const end = new Date('2021-12-15T12:00:00.000Z');
 
 const sampleEvents = [
   {
-    id: 1,
-    description: 'Event 1',
-    startDate: generateDates(0),
-    endDate: generateDates(2),
-    color: 'blue',
-  },
-  {
-    id: 2,
-    description: 'Event 2',
-    startDate: generateDates(1),
-    endDate: generateDates(4),
-    color: 'red',
-  },
-  {
-    id: 3,
-    description: 'Event 3',
-    startDate: generateDates(-5),
-    endDate: generateDates(-3),
-    color: 'green',
+    _id: '61afdf126a438092fdccc04d',
+    allInfo: '3003029-Projecto III-P III-TP-TP1-Aula 9119.3.3003029-TP-1',
+    color: '#cccccc',
+    description: 'P III',
+    id: '105228',
+    idEstado: '1',
+    professor:
+      'António Miguel Ribeiro dos Santos Rosado da Cruz; Jorge Manuel Ferreira Barbosa Ribeiro',
+    summary: 'ESTG - S.3.5',
+    tipoAula: 'TP1',
+    userProf: 'jribeiro; miguel.cruz',
+    startDate: start,
+    endDate: end,
   },
 ];
 
-const sampleFixedEvents = [
-  {
-    id: 1,
-    description: 'Event 1',
-    startDate: createFixedWeekDate('Monday', 12),
-    endDate: createFixedWeekDate(1, 14),
-    color: 'blue',
-  },
-  {
-    id: 2,
-    description: 'Event 2',
-    startDate: createFixedWeekDate('wed', 16),
-    endDate: createFixedWeekDate(3, 17, 30),
-    color: 'red',
-  },
-];
+const parseDate = stringDate => {
+  let day = stringDate.substring(0, 2);
+  let month = stringDate.substring(3, 5);
+  let year = stringDate.substr(6, 4);
+  let hours = stringDate.substr(11, 2);
+  let minutes = stringDate.substr(14, 2);
 
-// For debugging purposes
-const showFixedComponent = false;
+  const date = new Date(year, month - 1, day, hours, minutes);
+
+  return date;
+};
+//parametros anteriores (hours e minutes)
+
+const parseObject = json => {
+  const objectParsed = {
+    _id: json._id,
+    allInfo: json.allInfo,
+    color: json.color,
+    description: json.description,
+    id: json.id,
+    idEstado: json.idEstado,
+    professor: json.professor,
+    summary: json.summary,
+    tipoAula: json.tipoAula,
+    userProf: json.userProf,
+    startDate: parseDate(json.startDate),
+    endDate: parseDate(json.endDate),
+  };
+
+  return objectParsed;
+};
 
 const MyRefreshComponent = ({style}) => (
   // Just an example
@@ -71,40 +71,40 @@ const MyRefreshComponent = ({style}) => (
 
 class Horario extends React.Component {
   state = {
-    events: showFixedComponent ? sampleFixedEvents : sampleEvents,
+    events: sampleEvents,
     selectedDate: new Date(),
   };
 
+  getAulasFromApiAsync = async () => {
+    try {
+      const response = await fetch('http:/192.168.1.8:5000/api/aulas/');
+      const json = await response.json();
+
+      let horarios = [];
+
+      for (let i = 0; i < json.aulas.length; i++) {
+        horarios.push(parseObject(json.aulas[i]));
+      }
+
+      this.setState({events: horarios});
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //quando a página está loaded
+  // componentDidMount() {
+  //   if (this.state.events === '') {
+  //     this.getAulasFromApiAsync();
+  //   }
+  // }
+
+  //quando clicar no evento
   onEventPress = ({id, color, startDate, endDate}) => {
     Alert.alert(
       `event ${color} - ${id}`,
       `start: ${startDate}\nend: ${endDate}`,
     );
-  };
-
-  onGridClick = (event, startHour, date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1; // zero-based
-    const day = date.getDate();
-    const hour = date.getHours();
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
-
-    Alert.alert(`${year}-${month}-${day} ${hour}:${minutes}:${seconds}`);
-  };
-
-  onDragEvent = (event, newStartDate, newEndDate) => {
-    // Here you should update the event in your DB with the new date and hour
-    this.setState({
-      events: [
-        ...this.state.events.filter(e => e.id !== event.id),
-        {
-          ...event,
-          startDate: newStartDate,
-          endDate: newEndDate,
-        },
-      ],
-    });
   };
 
   //isRefreshing - para colocar a variavel do isLoading
@@ -122,20 +122,18 @@ class Horario extends React.Component {
             selectedDate={selectedDate}
             numberOfDays={3}
             onEventPress={this.onEventPress}
-            onGridClick={this.onGridClick}
             headerStyle={styles.header}
             headerTextStyle={styles.headerText}
             hourTextStyle={styles.hourText}
             eventContainerStyle={styles.eventContainer}
-            formatDateHeader={showFixedComponent ? 'ddd' : 'ddd DD'}
+            formatDateHeader={'ddd DD'}
             hoursInDisplay={12}
             showNowLine={false}
             timeStep={60}
             startHour={9}
             weekStartsOn={1}
-            fixedHorizontally={showFixedComponent}
-            showTitle={!showFixedComponent}
-            onDragEvent={this.onDragEvent}
+            fixedHorizontally={false}
+            showTitle={true}
             isRefreshing={false}
             RefreshComponent={MyRefreshComponent}
           />

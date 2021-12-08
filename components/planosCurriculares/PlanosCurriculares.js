@@ -12,6 +12,7 @@ import {
 const PlanosCurriculares = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+
   const URL = 'http://localhost:5000/api/planosCurriculares';
 
   useEffect(() => {
