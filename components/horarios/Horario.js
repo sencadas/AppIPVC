@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
   StatusBar,
   ActivityIndicator,
 } from 'react-native';
-
+import {OpenModalAction} from '../../store/horarios/actions';
 import WeekView from './react-native-week-view/index.js';
+import {useDispatch} from 'react-redux';
 
 const parseDate = stringDate => {
   let day = stringDate.substring(0, 2);
@@ -45,72 +46,64 @@ const MyRefreshComponent = ({style}) => (
   <ActivityIndicator style={style} color="red" size="large" />
 );
 
-class Horario extends React.Component {
-  state = {
-    events: sampleEvents,
-    selectedDate: new Date(),
-  };
+const Horario = () => {
+  const [events, setEvents] = useState();
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [isLoading, setLoading] = useState(true);
 
-  getAulasFromApiAsync = async () => {
-    try {
-      const response = await fetch('http://10.0.2.2:5000/api/aulas/');
-      const json = await response.json();
+  const URL = 'http://10.0.2.2:5000/api/aulas/';
 
-      let horarios = [];
+  const dispatch = useDispatch();
 
-      for (let i = 0; i < json.aulas.length; i++) {
-        horarios.push(parseObject(json.aulas[i]));
-      }
+  //fetching info
+  useEffect(() => {
+    fetch(URL)
+      .then(response => response.json())
+      .then(json => {
+        let horarios = [];
 
-      this.setState({events: horarios});
-    } catch (error) {
-      console.error(error);
-    }
-  };
+        for (let i = 0; i < json.aulas.length; i++) {
+          horarios.push(parseObject(json.aulas[i]));
+        }
 
-  //quando a página está loaded
-  componentDidMount() {
-    this.getAulasFromApiAsync();
-  }
+        setEvents(horarios);
+      })
+      .catch(error => {
+        throw error;
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
-  //quando clicar no evento
-  onEventPress = ({id, color, startDate, endDate}) => {};
+  // const onEventPress = ({id, color, description, startDate, endDate}) => {};
 
-  //isRefreshing - para colocar a variavel do isLoading
-  render() {
-    const {events, selectedDate} = this.state;
-    return (
-      <>
-        <StatusBar barStyle="dark-content" />
-        <SafeAreaView style={styles.container}>
-          <WeekView
-            ref={r => {
-              this.componentRef = r;
-            }}
-            events={events}
-            selectedDate={selectedDate}
-            numberOfDays={6}
-            onEventPress={this.onEventPress}
-            headerStyle={styles.header}
-            headerTextStyle={styles.headerText}
-            hourTextStyle={styles.hourText}
-            eventContainerStyle={styles.eventContainer}
-            formatDateHeader={'ddd DD'}
-            hoursInDisplay={12}
-            showNowLine={false}
-            timeStep={60}
-            startHour={9}
-            weekStartsOn={1}
-            fixedHorizontally={false}
-            showTitle={true}
-            isRefreshing={false}
-            RefreshComponent={MyRefreshComponent}
-          />
-        </SafeAreaView>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView style={styles.container}>
+        <WeekView
+          events={events}
+          selectedDate={selectedDate}
+          numberOfDays={6}
+          onEventPress={dispatch(OpenModalAction())}
+          headerStyle={styles.header}
+          headerTextStyle={styles.headerText}
+          hourTextStyle={styles.hourText}
+          eventContainerStyle={styles.eventContainer}
+          formatDateHeader={'ddd DD'}
+          hoursInDisplay={12}
+          showNowLine={false}
+          timeStep={60}
+          startHour={9}
+          weekStartsOn={1}
+          fixedHorizontally={false}
+          showTitle={true}
+          isRefreshing={false}
+          RefreshComponent={MyRefreshComponent}
+        />
+      </SafeAreaView>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
