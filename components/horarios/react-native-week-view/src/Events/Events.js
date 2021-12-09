@@ -19,6 +19,7 @@ import {
 
 import styles from './Events.styles';
 
+const SKIPPED_HOURS = 8;
 const MINUTES_IN_HOUR = 60;
 const EVENT_HORIZONTAL_PADDING = 15;
 const EVENTS_CONTAINER_WIDTH = CONTAINER_WIDTH - EVENT_HORIZONTAL_PADDING;
@@ -33,7 +34,7 @@ const areEventsOverlapped = (event1EndDate, event2StartDate) => {
 
 const getStyleForEvent = (event, regularItemWidth, hoursInDisplay) => {
   const startDate = moment(event.startDate);
-  const startHours = startDate.hours();
+  const startHours = startDate.hours() - SKIPPED_HOURS;
   const startMinutes = startDate.minutes();
   const totalStartMinutes = startHours * MINUTES_IN_HOUR + startMinutes;
   const top = minutesToYDimension(hoursInDisplay, totalStartMinutes);
@@ -82,10 +83,7 @@ const addOverlappedToArray = (baseArr, overlappedArr, itemWidth) => {
           overlappedArr[lastEvtInLaneIndex];
         if (
           !lastEvtInLane ||
-          !areEventsOverlapped(
-            lastEvtInLane.data.endDate,
-            event.data.startDate,
-          )
+          !areEventsOverlapped(lastEvtInLane.data.endDate, event.data.startDate)
         ) {
           // Place in this lane
           latestByLane[lane] = index;
@@ -115,7 +113,11 @@ const addOverlappedToArray = (baseArr, overlappedArr, itemWidth) => {
   });
 };
 
-const getEventsWithPosition = (totalEvents, regularItemWidth, hoursInDisplay) => {
+const getEventsWithPosition = (
+  totalEvents,
+  regularItemWidth,
+  hoursInDisplay,
+) => {
   return totalEvents.map((events) => {
     let overlappedSoFar = []; // Store events overlapped until now
     let lastDate = null;
@@ -131,21 +133,13 @@ const getEventsWithPosition = (totalEvents, regularItemWidth, hoursInDisplay) =>
         const endDate = moment(event.endDate);
         lastDate = lastDate ? moment.max(endDate, lastDate) : endDate;
       } else {
-        addOverlappedToArray(
-          eventsAcc,
-          overlappedSoFar,
-          regularItemWidth,
-        );
+        addOverlappedToArray(eventsAcc, overlappedSoFar, regularItemWidth);
         overlappedSoFar = [eventWithStyle];
         lastDate = moment(event.endDate);
       }
       return eventsAcc;
     }, []);
-    addOverlappedToArray(
-      eventsWithStyle,
-      overlappedSoFar,
-      regularItemWidth,
-    );
+    addOverlappedToArray(eventsWithStyle, overlappedSoFar, regularItemWidth);
     return eventsWithStyle;
   });
 };

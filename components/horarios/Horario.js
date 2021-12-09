@@ -3,12 +3,10 @@ import {
   SafeAreaView,
   StyleSheet,
   StatusBar,
-  Alert,
   ActivityIndicator,
-  Button,
 } from 'react-native';
 
-import WeekView from './react-native-week-view-master/index.js';
+import WeekView from './react-native-week-view/index.js';
 
 const start = new Date('2021-12-15T11:00:00.000Z');
 
@@ -77,7 +75,7 @@ class Horario extends React.Component {
 
   getAulasFromApiAsync = async () => {
     try {
-      const response = await fetch('http:/192.168.1.8:5000/api/aulas/');
+      const response = await fetch('http://10.0.2.2:5000/api/aulas/');
       const json = await response.json();
 
       let horarios = [];
@@ -93,19 +91,12 @@ class Horario extends React.Component {
   };
 
   //quando a página está loaded
-  // componentDidMount() {
-  //   if (this.state.events === '') {
-  //     this.getAulasFromApiAsync();
-  //   }
-  // }
+  componentDidMount() {
+    this.getAulasFromApiAsync();
+  }
 
   //quando clicar no evento
-  onEventPress = ({id, color, startDate, endDate}) => {
-    Alert.alert(
-      `event ${color} - ${id}`,
-      `start: ${startDate}\nend: ${endDate}`,
-    );
-  };
+  onEventPress = ({id, color, startDate, endDate}) => {};
 
   //isRefreshing - para colocar a variavel do isLoading
   render() {
@@ -120,7 +111,7 @@ class Horario extends React.Component {
             }}
             events={events}
             selectedDate={selectedDate}
-            numberOfDays={3}
+            numberOfDays={6}
             onEventPress={this.onEventPress}
             headerStyle={styles.header}
             headerTextStyle={styles.headerText}

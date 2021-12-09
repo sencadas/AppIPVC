@@ -52,7 +52,7 @@ class NowLine extends React.Component {
       useNativeDriver: true,
       isInteraction: false,
     }).start();
-  }
+  };
 
   render() {
     const { color, width } = this.props;

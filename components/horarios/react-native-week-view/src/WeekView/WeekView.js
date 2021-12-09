@@ -98,8 +98,13 @@ export default class WeekView extends Component {
     const times = [];
     const startOfDay = moment().startOf('day');
 
+    const skippedHours = 60 * 8;
     //neste timer escolhe se quantidade de horas por dia
-    for (let timer = 0; timer < MINUTES_IN_DAY; timer += minutesStep) {
+    for (
+      let timer = skippedHours;
+      timer < MINUTES_IN_DAY;
+      timer += minutesStep
+    ) {
       const time = startOfDay.clone().minutes(timer);
       times.push(time.format(formatTimeLabel));
     }
