@@ -47,8 +47,7 @@ export const Init = () => {
 };
 
 export const LoginAction = (username, password) => {
-  const URL =
-    'http://172.16.179.171:5000/api/Login/' + username + '/' + password;
+  const URL = 'http://192.168.1.8:5000/api/Login/' + username + '/' + password;
   return dispatch => {
     //Exemplo para post
     /* const requestOptions = {

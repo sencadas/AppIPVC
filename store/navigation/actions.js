@@ -9,7 +9,6 @@ export const ChangeNavigation = route => {
 
 export const ChangeNavigationAction = newRoute => {
   return async dispatch => {
-    console.log('nova rota:    ' + newRoute);
     dispatch(ChangeNavigation(newRoute));
   };
 };
