@@ -8,28 +8,6 @@ import {
 
 import WeekView from './react-native-week-view/index.js';
 
-const start = new Date('2021-12-15T11:00:00.000Z');
-
-const end = new Date('2021-12-15T12:00:00.000Z');
-
-const sampleEvents = [
-  {
-    _id: '61afdf126a438092fdccc04d',
-    allInfo: '3003029-Projecto III-P III-TP-TP1-Aula 9119.3.3003029-TP-1',
-    color: '#cccccc',
-    description: 'P III',
-    id: '105228',
-    idEstado: '1',
-    professor:
-      'António Miguel Ribeiro dos Santos Rosado da Cruz; Jorge Manuel Ferreira Barbosa Ribeiro',
-    summary: 'ESTG - S.3.5',
-    tipoAula: 'TP1',
-    userProf: 'jribeiro; miguel.cruz',
-    startDate: start,
-    endDate: end,
-  },
-];
-
 const parseDate = stringDate => {
   let day = stringDate.substring(0, 2);
   let month = stringDate.substring(3, 5);
