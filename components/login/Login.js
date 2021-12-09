@@ -6,10 +6,13 @@ import {LoginAction} from '../../store/auth/actions';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
   const dispatch = useDispatch();
+
   const submit = () => {
     dispatch(LoginAction(username, password));
   };
+
   return (
     <View style={styles.container}>
       <Text>App IPVC</Text>
