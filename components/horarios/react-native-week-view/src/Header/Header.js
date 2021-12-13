@@ -26,6 +26,7 @@ const Column = ({
   TodayComponent,
 }) => {
   const formattedDate = getFormattedDate(column, format);
+
   const useTodayComponent = TodayComponent && moment().isSame(column, 'days');
   const fullTextStyle = [getDayTextStyles(numberOfDays), textStyle];
 

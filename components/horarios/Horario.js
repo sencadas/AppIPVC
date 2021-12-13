@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {
-  View,
   SafeAreaView,
   StyleSheet,
   StatusBar,
   ActivityIndicator,
+  Button,
 } from 'react-native';
 import {OpenModalAction} from '../../store/horarios/actions';
 import WeekView from './react-native-week-view/index.js';
@@ -66,6 +66,8 @@ const Horario = () => {
   const [isLoading, setLoading] = useState(true);
   const [aulaPressed, setAulaPressed] = useState('');
 
+  let weekViewRef;
+
   const URL = 'http://10.0.2.2:5000/api/aulas/';
 
   const dispatch = useDispatch();
@@ -114,6 +116,10 @@ const Horario = () => {
     dispatch(OpenModalAction());
   };
 
+  const changeDate = () => {
+    weekViewRef.goToDate(new Date(2021, 11, 1), true);
+  };
+
   return (
     <>
       {isLoading === true ? (
@@ -125,31 +131,39 @@ const Horario = () => {
               <ModalSingleAula visible={seeModal} aula={aulaPressed} />
             )}
           </Portal>
-          <View style={styles.container}>
-            <StatusBar barStyle="dark-content" />
-            <SafeAreaView style={styles.container}>
-              <WeekView
-                events={events}
-                selectedDate={selectedDate}
-                numberOfDays={6}
-                onEventPress={onEventPress}
-                headerStyle={styles.header}
-                headerTextStyle={styles.headerText}
-                hourTextStyle={styles.hourText}
-                eventContainerStyle={styles.eventContainer}
-                formatDateHeader={'ddd DD'}
-                hoursInDisplay={12}
-                showNowLine={false}
-                timeStep={60}
-                startHour={9}
-                weekStartsOn={1}
-                fixedHorizontally={false}
-                showTitle={true}
-                isRefreshing={false}
-                RefreshComponent={MyRefreshComponent}
-              />
-            </SafeAreaView>
-          </View>
+          <StatusBar barStyle="dark-content" />
+          <Button
+            title="go To Date Title"
+            onPress={() => {
+              changeDate();
+            }}
+          />
+          <SafeAreaView style={styles.container}>
+            <WeekView
+              ref={ref => {
+                weekViewRef = ref;
+              }}
+              events={events}
+              selectedDate={selectedDate}
+              numberOfDays={6}
+              onEventPress={onEventPress}
+              headerStyle={styles.header}
+              headerTextStyle={styles.headerText}
+              hourTextStyle={styles.hourText}
+              eventContainerStyle={styles.eventContainer}
+              formatDateHeader={'ddd DD'}
+              hoursInDisplay={10}
+              showNowLine={false}
+              timeStep={60}
+              startHour={9}
+              weekStartsOn={1}
+              fixedHorizontally={false}
+              showTitle={true}
+              isRefreshing={false}
+              RefreshComponent={MyRefreshComponent}
+              locale={'pt'}
+            />
+          </SafeAreaView>
         </Provider>
       )}
     </>

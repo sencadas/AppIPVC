@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import memoizeOne from 'memoize-one';
-
+import 'moment/locale/pt';
 import Event from '../Event/Event';
 import Events from '../Events/Events';
 import Header from '../Header/Header';
@@ -26,6 +26,7 @@ import {
 } from '../utils';
 
 const MINUTES_IN_DAY = 60 * 24;
+const skippedHours = 8;
 
 export default class WeekView extends Component {
   constructor(props) {
@@ -98,10 +99,10 @@ export default class WeekView extends Component {
     const times = [];
     const startOfDay = moment().startOf('day');
 
-    const skippedHours = 60 * 8;
+    const skippedMinutes = 60 * skippedHours;
     //neste timer escolhe se quantidade de horas por dia
     for (
-      let timer = skippedHours;
+      let timer = skippedMinutes;
       timer < MINUTES_IN_DAY;
       timer += minutesStep
     ) {
@@ -113,7 +114,8 @@ export default class WeekView extends Component {
 
   scrollToVerticalStart = () => {
     if (this.verticalAgenda) {
-      const { startHour, hoursInDisplay } = this.props;
+      let { startHour, hoursInDisplay } = this.props;
+      startHour = startHour - skippedHours;
       const startHeight = (startHour * CONTAINER_HEIGHT) / hoursInDisplay;
       this.verticalAgenda.scrollTo({ y: startHeight, x: 0, animated: false });
     }
@@ -121,7 +123,6 @@ export default class WeekView extends Component {
 
   getSignToTheFuture = () => {
     const { prependMostRecent } = this.props;
-
     const daySignToTheFuture = prependMostRecent ? -1 : 1;
     return daySignToTheFuture;
   };
@@ -325,6 +326,8 @@ export default class WeekView extends Component {
     // For example: { "2020-02-03": [event1, event2, ...] }
     // If an event spans through multiple days, adds the event multiple times
     const sortedEvents = {};
+
+    console.log('entrei');
     events.forEach((event) => {
       // in milliseconds
       const originalDuration =
@@ -362,6 +365,7 @@ export default class WeekView extends Component {
         return moment(a.startDate).diff(b.startDate, 'minutes');
       });
     });
+
     return sortedEvents;
   });
 
@@ -405,6 +409,8 @@ export default class WeekView extends Component {
     const horizontalInverted =
       (prependMostRecent && !rightToLeft) ||
       (!prependMostRecent && rightToLeft);
+
+    // console.log('render', this.state);
 
     return (
       <View style={styles.container}>
@@ -558,7 +564,7 @@ WeekView.propTypes = {
 
 WeekView.defaultProps = {
   events: [],
-  locale: 'en',
+  locale: 'pt',
   hoursInDisplay: 6,
   weekStartsOn: 1,
   timeStep: 60,
