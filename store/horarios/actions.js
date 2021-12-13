@@ -7,7 +7,7 @@ export const closeModal = () => {
   };
 };
 
-export const openModal = route => {
+export const openModal = () => {
   return {
     type: OPEN_MODAL_SINGLE_AULA,
     visible: true,
