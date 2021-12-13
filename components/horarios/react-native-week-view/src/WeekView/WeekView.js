@@ -121,12 +121,14 @@ export default class WeekView extends Component {
     }
   };
 
+  //executa para tras e para a frente
   getSignToTheFuture = () => {
     const { prependMostRecent } = this.props;
     const daySignToTheFuture = prependMostRecent ? -1 : 1;
     return daySignToTheFuture;
   };
 
+  //executa só 1 vez para tras
   prependPagesInPlace = (initialDates, nPages) => {
     const { numberOfDays } = this.props;
     const daySignToTheFuture = this.getSignToTheFuture();
@@ -222,10 +224,12 @@ export default class WeekView extends Component {
     this.setState(newState, newStateCallback);
   };
 
+  //entra 1 vez para a esquerd e para a direita
   scrollBegun = () => {
     this.isScrollingHorizontal = true;
   };
 
+  //entra 3 vezes para a esquerda e para a direita
   scrollEnded = (event) => {
     if (!this.isScrollingHorizontal) {
       // Ensure the callback is called only once
@@ -327,7 +331,6 @@ export default class WeekView extends Component {
     // If an event spans through multiple days, adds the event multiple times
     const sortedEvents = {};
 
-    console.log('entrei');
     events.forEach((event) => {
       // in milliseconds
       const originalDuration =
@@ -409,8 +412,6 @@ export default class WeekView extends Component {
     const horizontalInverted =
       (prependMostRecent && !rightToLeft) ||
       (!prependMostRecent && rightToLeft);
-
-    // console.log('render', this.state);
 
     return (
       <View style={styles.container}>
