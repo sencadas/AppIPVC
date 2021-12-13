@@ -12,14 +12,16 @@ import {useDispatch} from 'react-redux';
 import ModalSingleAula from './modalSingleAula';
 import {store} from '../../store/store';
 import {Portal, Provider} from 'react-native-paper';
+import Loading from '../universalComponents/Loading.js';
 
 //se type = 1 retorna a data senão retorna a hora e minutos
 const parseDate = (stringDate, type) => {
+  let hours = stringDate.substr(11, 2);
+  let minutes = stringDate.substr(14, 2);
+
   let day = stringDate.substring(0, 2);
   let month = stringDate.substring(3, 5);
   let year = stringDate.substr(6, 4);
-  let hours = stringDate.substr(11, 2);
-  let minutes = stringDate.substr(14, 2);
 
   const date = new Date(year, month - 1, day, hours, minutes);
 
@@ -112,47 +114,45 @@ const Horario = () => {
     dispatch(OpenModalAction());
   };
 
-  if (isLoading) {
-    return (
-      <View style={{flex: 1, justifyContent: 'center'}}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
-
   return (
-    <Provider>
-      <Portal>
-        {seeModal === true && (
-          <ModalSingleAula visible={seeModal} aula={aulaPressed} />
-        )}
-      </Portal>
-      <View style={styles.container}>
-        <StatusBar barStyle="dark-content" />
-        <SafeAreaView style={styles.container}>
-          <WeekView
-            events={events}
-            selectedDate={selectedDate}
-            numberOfDays={6}
-            onEventPress={onEventPress}
-            headerStyle={styles.header}
-            headerTextStyle={styles.headerText}
-            hourTextStyle={styles.hourText}
-            eventContainerStyle={styles.eventContainer}
-            formatDateHeader={'ddd DD'}
-            hoursInDisplay={12}
-            showNowLine={false}
-            timeStep={60}
-            startHour={9}
-            weekStartsOn={1}
-            fixedHorizontally={false}
-            showTitle={true}
-            isRefreshing={false}
-            RefreshComponent={MyRefreshComponent}
-          />
-        </SafeAreaView>
-      </View>
-    </Provider>
+    <>
+      {isLoading === true ? (
+        <Loading />
+      ) : (
+        <Provider>
+          <Portal>
+            {seeModal === true && (
+              <ModalSingleAula visible={seeModal} aula={aulaPressed} />
+            )}
+          </Portal>
+          <View style={styles.container}>
+            <StatusBar barStyle="dark-content" />
+            <SafeAreaView style={styles.container}>
+              <WeekView
+                events={events}
+                selectedDate={selectedDate}
+                numberOfDays={6}
+                onEventPress={onEventPress}
+                headerStyle={styles.header}
+                headerTextStyle={styles.headerText}
+                hourTextStyle={styles.hourText}
+                eventContainerStyle={styles.eventContainer}
+                formatDateHeader={'ddd DD'}
+                hoursInDisplay={12}
+                showNowLine={false}
+                timeStep={60}
+                startHour={9}
+                weekStartsOn={1}
+                fixedHorizontally={false}
+                showTitle={true}
+                isRefreshing={false}
+                RefreshComponent={MyRefreshComponent}
+              />
+            </SafeAreaView>
+          </View>
+        </Provider>
+      )}
+    </>
   );
 };
 

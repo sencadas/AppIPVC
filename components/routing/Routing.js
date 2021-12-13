@@ -5,8 +5,7 @@ import Login from '../login/Login';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {Init} from '../../store/auth/actions';
-import {ActivityIndicator, View} from 'react-native';
-
+import Loading from '../universalComponents/Loading';
 const Routing = () => {
   //Provisório
   const user = useSelector(state => state.AuthReducers);
@@ -18,17 +17,16 @@ const Routing = () => {
     dispatch(Init());
   }, [dispatch]);
 
-  if (user.loading) {
-    return (
-      <View style={{flex: 1, justifyContent: 'center'}}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
   return (
-    <NavigationContainer>
-      {user.name === null ? <Login /> : <DrawerNavigation />}
-    </NavigationContainer>
+    <>
+      {user.loading === true ? (
+        <Loading />
+      ) : (
+        <NavigationContainer>
+          {user.name === null ? <Login /> : <DrawerNavigation />}
+        </NavigationContainer>
+      )}
+    </>
   );
 };
 
