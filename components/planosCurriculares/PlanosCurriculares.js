@@ -14,9 +14,8 @@ const PlanosCurriculares = () => {
   const [isLoading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(true);
   const [data, setData] = useState([]);
-  const URL = 'http://192.168.1.9:5000/api/planosCurriculares';
 
-  const handlePress = () => setExpanded(!expanded);
+  const URL = 'http://localhost:5000/api/planosCurriculares';
 
   useEffect(() => {
     fetch(URL)
