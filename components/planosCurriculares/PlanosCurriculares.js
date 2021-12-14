@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {List} from 'react-native-paper';
 import {
   SafeAreaView,
   View,
@@ -11,8 +12,11 @@ import {
 
 const PlanosCurriculares = () => {
   const [isLoading, setLoading] = useState(true);
+  const [expanded, setExpanded] = useState(true);
   const [data, setData] = useState([]);
-  const URL = 'http://localhost:5000/api/planosCurriculares';
+  const URL = 'http://192.168.1.9:5000/api/planosCurriculares';
+
+  const handlePress = () => setExpanded(!expanded);
 
   useEffect(() => {
     fetch(URL)
@@ -21,7 +25,6 @@ const PlanosCurriculares = () => {
         setData(json.planCurr);
       })
       .catch(error => {
-        console.log('aqui');
         throw error;
       })
       .finally(() => setLoading(false));
@@ -33,7 +36,6 @@ const PlanosCurriculares = () => {
         <ActivityIndicator size={'large'} color={'#2fbbf0'} />
       ) : (
         <View style={styles.main}>
-          <Text style={styles.header}>Planos Curriculares</Text>
           <View style={styles.textInputView}>
             <TextInput
               placeholder={'Perquisar por disciplina...'}
