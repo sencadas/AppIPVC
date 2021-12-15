@@ -32,7 +32,7 @@ const parseDate = (stringDate, type) => {
     return hours_minutes;
   }
 };
-//parametros anteriores (hours e minutes)
+//parametros anteriores (hours e minutes).
 
 const parseObject = json => {
   const objectParsed = {
@@ -83,6 +83,7 @@ const Horario = () => {
       .then(json => {
         let horarios = [];
 
+        console.log(json.aulas);
         for (let i = 0; i < json.aulas.length; i++) {
           horarios.push(parseObject(json.aulas[i]));
         }
