@@ -22,6 +22,7 @@ const PlanosCurriculares = () => {
       .then(response => response.json())
       .then(json => {
         setData(json.planCurr);
+        console.log(json.planCurr);
       })
       .catch(error => {
         throw error;
@@ -50,7 +51,6 @@ const PlanosCurriculares = () => {
             renderItem={({item}) => (
               <List.Accordion
                 title={item.Unidade_Curricular}
-                left={props => <List.Icon {...props} icon="folder" />}
                 expanded={expanded}
                 onPress={handlePress}>
                 <List.Item title={item.Ano_Curricular} />
