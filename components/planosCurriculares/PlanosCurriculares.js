@@ -15,7 +15,7 @@ const PlanosCurriculares = () => {
   const [expanded, setExpanded] = useState(true);
   const [data, setData] = useState([]);
 
-  const URL = 'http://localhost:5000/api/planosCurriculares';
+  const URL = 'http://192.168.1.9:5000/api/planosCurriculares';
 
   useEffect(() => {
     fetch(URL)
@@ -28,6 +28,8 @@ const PlanosCurriculares = () => {
       })
       .finally(() => setLoading(false));
   }, []);
+
+  const handlePress = () => setExpanded(!expanded);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,16 +48,13 @@ const PlanosCurriculares = () => {
             data={data}
             keyExtractor={item => item._id}
             renderItem={({item}) => (
-              <View style={styles.card}>
-                <Text style={styles.titleCard}>{item.Unidade_Curricular}</Text>
-                <Text style={styles.cred}>Créditos: {item.ects}</Text>
-                <Text style={styles.anoSemestre}>
-                  Ano: {item.Ano_Curricular}, {item.Semestre_Curricular}
-                </Text>
-                <Text style={styles.anoSemestre}>
-                  TP: {item.TP}, P: {item.P}
-                </Text>
-              </View>
+              <List.Accordion
+                title={item.Unidade_Curricular}
+                left={props => <List.Icon {...props} icon="folder" />}
+                expanded={expanded}
+                onPress={handlePress}>
+                <List.Item title={item.Ano_Curricular} />
+              </List.Accordion>
             )}
           />
         </View>

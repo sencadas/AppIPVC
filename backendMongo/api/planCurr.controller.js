@@ -4,7 +4,7 @@ export default class PlanCurrController {
   static async apiGetPlanCurr(req, res, next) {
     const planCurrPerPage = req.query.planCurrPerPage
       ? parseInt(req.query.planCurrPerPage, 10)
-      : 20;
+      : 200;
     const page = req.query.page ? parseInt(req.query.page, 10) : 0;
 
     let filters = {};
