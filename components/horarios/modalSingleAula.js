@@ -1,12 +1,7 @@
 import React from 'react';
-import {View} from 'react-native';
 import {Modal, Text} from 'react-native-paper';
-import {useDispatch} from 'react-redux';
-import {CloseModalAction} from '../../store/horarios/actions';
 
-const ModalSingleAula = ({aula, visible}) => {
-  const dispatch = useDispatch();
-
+const ModalSingleAula = ({aula, visible, setModal}) => {
   const modalStyle = {
     backgroundColor: 'white',
     padding: 20,
@@ -18,7 +13,7 @@ const ModalSingleAula = ({aula, visible}) => {
   return (
     <Modal
       visible={visible}
-      onDismiss={() => dispatch(CloseModalAction())}
+      onDismiss={() => setModal(false)}
       contentContainerStyle={modalStyle}>
       <Text>Aula : {aula.description}</Text>
       <Text>{aula.sala}</Text>

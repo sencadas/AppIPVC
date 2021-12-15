@@ -6,11 +6,9 @@ import {
   ActivityIndicator,
   Button,
 } from 'react-native';
-import {OpenModalAction} from '../../store/horarios/actions';
 import WeekView from './react-native-week-view/index.js';
 import {useDispatch} from 'react-redux';
 import ModalSingleAula from './modalSingleAula';
-import {store} from '../../store/store';
 import {Portal, Provider} from 'react-native-paper';
 import Loading from '../universalComponents/Loading.js';
 
@@ -70,11 +68,7 @@ const Horario = () => {
 
   const URL = 'http://10.0.2.2:5000/api/aulas/';
 
-  const dispatch = useDispatch();
-
-  store.subscribe(() => {
-    setSeeModal(store.getState().HorariosReducers.visible);
-  });
+  console.log(URL);
 
   //fetching info
   useEffect(() => {
@@ -94,6 +88,7 @@ const Horario = () => {
         throw error;
       })
       .finally(() => setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onEventPress = ({
@@ -114,7 +109,7 @@ const Horario = () => {
     };
 
     setAulaPressed(aula);
-    dispatch(OpenModalAction());
+    setSeeModal(true);
   };
 
   const changeDate = () => {
@@ -129,7 +124,11 @@ const Horario = () => {
         <Provider>
           <Portal>
             {seeModal === true && (
-              <ModalSingleAula visible={seeModal} aula={aulaPressed} />
+              <ModalSingleAula
+                visible={seeModal}
+                aula={aulaPressed}
+                setModal={setSeeModal}
+              />
             )}
           </Portal>
           <StatusBar barStyle="dark-content" />
