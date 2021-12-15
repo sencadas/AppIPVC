@@ -5,8 +5,8 @@ import {FlatList, Text, View} from 'react-native';
 const ListaAnos = ({ano, disc}) => {
   const [expanded, setExpanded] = useState(true);
   const handlePress = () => setExpanded(!expanded);
-  console.log(disc[47].Ano_Curricular);
-  console.log(ano);
+
+  console.log(disc);
 
   return (
     <List.Accordion
@@ -16,6 +16,7 @@ const ListaAnos = ({ano, disc}) => {
       <FlatList
         data={disc}
         keyExtractor={({item, index}) => index}
+        listKey={(item, index) => 'D' + index.toString()}
         renderItem={({item}) =>
           item.Ano_Curricular === ano ? (
             <View>

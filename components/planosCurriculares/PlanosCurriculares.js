@@ -37,6 +37,7 @@ const PlanosCurriculares = () => {
       anos.push(data[i].Ano_Curricular);
     }
   }
+  console.log(data);
 
   return (
     <SafeAreaView style={Styles.container}>
