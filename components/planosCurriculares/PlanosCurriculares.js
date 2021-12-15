@@ -30,6 +30,17 @@ const PlanosCurriculares = () => {
       .finally(() => setLoading(false));
   }, []);
 
+  let anos = [];
+
+  for (let i = 0; i < data.length; i++) {
+    if (
+      !anos.includes(data[i].Ano_Curricular) &&
+      data[i].Ano_Curricular !== undefined
+    ) {
+      anos.push(data[i].Ano_Curricular);
+    }
+  }
+
   const handlePress = () => setExpanded(!expanded);
 
   return (
