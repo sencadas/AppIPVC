@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {List} from 'react-native-paper';
 import Styles from './Styles';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, Text, View, SafeAreaView} from 'react-native';
 
 const ListaAnos = ({data, id}) => {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   const handlePress = () => setExpanded(!expanded);
 
   return (
-    <List.AccordionGroup title="Disciplinas">
+    <List.AccordionGroup key={id}>
       <List.Accordion
         title={data.ano + 'º ano'}
         id={data.ano}
@@ -16,8 +16,10 @@ const ListaAnos = ({data, id}) => {
         onPress={handlePress}>
         <FlatList
           data={data.UCs}
-          keyExtractor={({item, index}) => index}
-          listKey={(item, index) => 'D' + index.toString()}
+          keyExtractor={(item, index) => {
+            return index.toString();
+          }}
+          listKey={(item, index) => index}
           renderItem={({item, index}) => (
             <View>
               <List.Item
@@ -27,7 +29,6 @@ const ListaAnos = ({data, id}) => {
                     ? 'Primeiro semestre'
                     : 'Segundo semestre'
                 }
-                key={index}
               />
               <View style={Styles.card}>
                 <Text style={Styles.cred}>

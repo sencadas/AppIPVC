@@ -13,7 +13,7 @@ const PlanosCurriculares = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  const URL = 'http://10.0.2.2:5000/api/planosCurriculares';
+  const URL = 'http://192.168.1.9:5000/api/planosCurriculares';
 
   /* function setAnos(json) {
     for (let i = 0; i < json.length; i++) {
@@ -76,7 +76,9 @@ const PlanosCurriculares = () => {
 
           <FlatList
             data={dataOrganized}
-            keyExtractor={({item, index}) => index}
+            keyExtractor={(item, index) => {
+              return index.toString();
+            }}
             renderItem={({item, index}) => <ListaAnos data={item} id={index} />}
           />
         </View>
