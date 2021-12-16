@@ -13,7 +13,15 @@ const PlanosCurriculares = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  const URL = 'http://192.168.1.9:5000/api/planosCurriculares';
+  const URL = 'http://10.0.2.2:5000/api/planosCurriculares';
+
+  /* function setAnos(json) {
+    for (let i = 0; i < json.length; i++) {
+      if (!data.ano.includes(json[i].Ano_Curricular)) {
+        setData(json[i].Ano_Curricular);
+      }
+    }
+  } */
 
   useEffect(() => {
     fetch(URL)
@@ -27,24 +35,38 @@ const PlanosCurriculares = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  let anos = [];
-
+  let dataOrganized = [];
+  //get ano
   for (let i = 0; i < data.length; i++) {
     if (
-      !anos.includes(data[i].Ano_Curricular) &&
+      !dataOrganized.some(e => e.ano === data[i].Ano_Curricular) &&
       data[i].Ano_Curricular !== undefined
     ) {
-      anos.push(data[i].Ano_Curricular);
+      dataOrganized.push({
+        ano: data[i].Ano_Curricular,
+        UCs: [],
+      });
     }
   }
-  console.log(data);
+  //get UCs
+  for (let j = 0; j < data.length; j++) {
+    for (let i = 0; i < dataOrganized.length; i++) {
+      if (dataOrganized[i].ano === data[j].Ano_Curricular) {
+        dataOrganized[i].UCs.push(data[j]);
+      }
+    }
+  }
+  //organizar a por ano
+  dataOrganized.sort(function (a, b) {
+    return +(a.ano > b.ano) || +(a.ano === b.ano) - 1;
+  });
 
   return (
-    <SafeAreaView style={Styles.container}>
+    <SafeAreaView>
       {isLoading ? (
         <ActivityIndicator size={'large'} color={'#2fbbf0'} />
       ) : (
-        <View style={Styles.main}>
+        <View style={Styles.container}>
           <View style={Styles.textInputView}>
             <TextInput
               placeholder={'Perquisar por disciplina...'}
@@ -53,9 +75,9 @@ const PlanosCurriculares = () => {
           </View>
 
           <FlatList
-            data={anos.sort()}
+            data={dataOrganized}
             keyExtractor={({item, index}) => index}
-            renderItem={({item}) => <ListaAnos ano={item} disc={data} />}
+            renderItem={({item, index}) => <ListaAnos data={item} id={index} />}
           />
         </View>
       )}
