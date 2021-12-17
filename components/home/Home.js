@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = () => {
   const [name, setName] = useState([]);
+
   try {
     AsyncStorage.getItem('name').then(value => {
       setName(value);

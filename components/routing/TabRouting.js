@@ -7,13 +7,15 @@ import Definicoes from '../definicoes/Definicoes';
 import Horario from '../horarios/Horario';
 import CalendarioLetivo from '../calendarioLetivo/CalendarioLetivo';
 import PlanosCurriculares from '../planosCurriculares/PlanosCurriculares';
+import {useDispatch} from 'react-redux';
+import {ChangeNavigationAction} from '../../store/navigation/actions';
 
 const Tab = createBottomTabNavigator();
 
 const hiddenTabs = ['Horário', 'Calendário Letivo', 'Planos Curriculares'];
 
-const TabRouting = props => {
-  // Content of the component
+const TabRouting = () => {
+  const dispatch = useDispatch();
 
   return (
     <Tab.Navigator
@@ -37,9 +39,35 @@ const TabRouting = props => {
         tabBarInactiveTintColor: 'gray',
         headerShown: false,
       })}>
-      <Tab.Screen name="Resumo" component={PaginaInicial} />
-      <Tab.Screen name="Perfil" component={Perfil} />
-      <Tab.Screen name="Definições" component={Definicoes} />
+      <Tab.Screen
+        name="Resumo"
+        listeners={{
+          tabPress: () => {
+            dispatch(ChangeNavigationAction('resumo'));
+          },
+        }}
+        component={PaginaInicial}
+      />
+      <Tab.Screen
+        name="Perfil"
+        listeners={{
+          tabPress: () => {
+            dispatch(ChangeNavigationAction('perfil'));
+          },
+        }}
+        component={Perfil}
+      />
+      <Tab.Screen
+        name="Definições"
+        listeners={{
+          tabPress: () => {
+            dispatch(ChangeNavigationAction('definicoes'));
+          },
+        }}
+        component={Definicoes}
+      />
+
+      {/* Rotas Escondidas, acedidas através do DrawerContent */}
       <Tab.Screen name="Horário" component={Horario} />
       <Tab.Screen name="Calendário Letivo" component={CalendarioLetivo} />
       <Tab.Screen name="Planos Curriculares" component={PlanosCurriculares} />

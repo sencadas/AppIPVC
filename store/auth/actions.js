@@ -11,18 +11,21 @@ export const fetchAuthRequest = () => {
     type: FETCH_AUTH_REQUEST,
   };
 };
+
 export const fetchAuthSuccess = user => {
   return {
     type: FETCH_AUTH_SUCCESS,
     payload: user,
   };
 };
+
 export const fetchAuthFailure = error => {
   return {
     type: FETCH_AUTH_FAILURE,
     payload: error,
   };
 };
+
 export const logout = () => {
   return {
     type: LOGOUT,
@@ -44,8 +47,7 @@ export const Init = () => {
 };
 
 export const LoginAction = (username, password) => {
-  const URL =
-    'http://172.16.186.166:5000/api/Login/' + username + '/' + password;
+  const URL = 'http://10.0.2.2:5000/api/Login/' + username + '/' + password;
   return dispatch => {
     //Exemplo para post
     /* const requestOptions = {
