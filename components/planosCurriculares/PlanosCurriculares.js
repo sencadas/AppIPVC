@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {List} from 'react-native-paper';
+import {List, Searchbar} from 'react-native-paper';
 import ListaAnos from './ListaAnos';
 import Styles from './Styles';
 import {
@@ -51,6 +51,8 @@ const formatData = data => {
 const PlanosCurriculares = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const onChangeSearch = query => setSearchQuery(query);
 
   const URL = 'http://192.168.1.9:5000/api/planosCurriculares';
 
@@ -66,6 +68,21 @@ const PlanosCurriculares = () => {
       .finally(() => setLoading(false));
   }, []);
 
+  /* const pesquisar = ({item}) => {
+    // when no input, show all
+    if (data.searchPhrase === '') {
+      return <Item name={item.name} details={item.details} />;
+    }
+    // filter of the name
+    if (
+      item.name
+        .toUpperCase()
+        .includes(data.searchPhrase.toUpperCase().trim().replace(/\s/g, ''))
+    ) {
+      return <Item name={item.name} details={item.details} />;
+    }
+  }; */
+
   return (
     <SafeAreaView>
       {isLoading ? (
@@ -73,9 +90,10 @@ const PlanosCurriculares = () => {
       ) : (
         <View style={Styles.container}>
           <View style={Styles.textInputView}>
-            <TextInput
-              placeholder={'Perquisar por disciplina...'}
-              style={Styles.inputSearch}
+            <Searchbar
+              placeholder="Pesquisar"
+              onChangeText={onChangeSearch}
+              value={searchQuery}
             />
           </View>
           <List.AccordionGroup>

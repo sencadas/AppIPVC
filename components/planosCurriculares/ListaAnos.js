@@ -13,7 +13,7 @@ const ListaAnos = ({data}) => {
       id={data.ano}
       title={data.ano + 'º ano'}
       left={props => <List.Icon {...props} icon="folder" />}
-      expanded={expanded}
+      expanded={!expanded}
       onPress={handlePress}>
       <ListaSemestre
         primeiroSemestre={data.UCs.primeiroSemestre}

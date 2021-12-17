@@ -7,18 +7,19 @@ const styles = StyleSheet.create({
   main: {
     margin: 5,
   },
-  inputSearch: {
+  /* inputSearch: {
     marginTop: 13,
     height: 39,
     width: '90%',
     backgroundColor: '#EBEBEB',
     borderRadius: 20,
     paddingLeft: 15,
-  },
+  }, */
   textInputView: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: 15,
+    paddingLeft: 12,
+    paddingRight: 12,
   },
 });
 
