@@ -12,6 +12,7 @@ const ListaAnos = ({data}) => {
     <List.Accordion
       id={data.ano}
       title={data.ano + 'º ano'}
+      left={props => <List.Icon {...props} icon="folder" />}
       expanded={expanded}
       onPress={handlePress}>
       <ListaSemestre

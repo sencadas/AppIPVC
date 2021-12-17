@@ -9,12 +9,12 @@ const ListaSemestre = ({primeiroSemestre, segundoSemestre}) => {
   const [expanded2, setExpanded2] = useState(true);
   const handlePressPrimeiroSemestre = () => setExpanded1(!expanded1);
   const handlePressSegundoSemestre = () => setExpanded2(!expanded2);
-  console.log(expanded1);
 
   return (
     <>
       <List.Item
         title="Primeiro semestre"
+        left={props => <List.Icon {...props} icon="folder" />}
         onPress={handlePressPrimeiroSemestre}
       />
       {expanded1 === true ? (
@@ -29,6 +29,7 @@ const ListaSemestre = ({primeiroSemestre, segundoSemestre}) => {
       ) : null}
       <List.Item
         title="Segundo semestre"
+        left={props => <List.Icon {...props} icon="folder" />}
         onPress={handlePressSegundoSemestre}
       />
       {expanded2 === true ? (

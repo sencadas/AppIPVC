@@ -7,19 +7,6 @@ const styles = StyleSheet.create({
   main: {
     margin: 5,
   },
-  card: {
-    flex: 1,
-    backgroundColor: '#ebebeb',
-    padding: 15,
-    paddingTop: 5,
-  },
-  item: {
-    height: 100,
-    justifyContent: 'center',
-    marginVertical: 8,
-    marginHorizontal: 16,
-    padding: 20,
-  },
   inputSearch: {
     marginTop: 13,
     height: 39,
