@@ -15,26 +15,32 @@ const ListaSemestre = ({primeiroSemestre, segundoSemestre}) => {
     <>
       <List.Item
         title="Primeiro semestre"
-        onPress={handlePressPrimeiroSemestre}>
-        {expanded1 === true ? (
-          <FlatList
-            data={primeiroSemestre}
-            keyExtractor={(item, index) => {
-              return index.toString();
-            }}
-            renderItem={({item, index}) => <ListaUC data={item} />}
-          />
-        ) : null}
-      </List.Item>
-      <List.Item title="Segundo semestre" onPress={handlePressSegundoSemestre}>
+        onPress={handlePressPrimeiroSemestre}
+      />
+      {expanded1 === true ? (
         <FlatList
-          data={segundoSemestre}
+          data={primeiroSemestre}
+          listKey={(item, index) => 'D' + index.toString()}
           keyExtractor={(item, index) => {
             return index.toString();
           }}
           renderItem={({item, index}) => <ListaUC data={item} />}
         />
-      </List.Item>
+      ) : null}
+      <List.Item
+        title="Segundo semestre"
+        onPress={handlePressSegundoSemestre}
+      />
+      {expanded2 === true ? (
+        <FlatList
+          data={segundoSemestre}
+          listKey={(item, index) => 'D' + index.toString()}
+          keyExtractor={(item, index) => {
+            return index.toString();
+          }}
+          renderItem={({item, index}) => <ListaUC data={item} />}
+        />
+      ) : null}
     </>
   );
 };
