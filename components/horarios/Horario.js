@@ -1,18 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import {
-  View,
-  SafeAreaView,
-  StyleSheet,
-  StatusBar,
-  ActivityIndicator,
-} from 'react-native';
-import {OpenModalAction} from '../../store/horarios/actions';
+import React, {useState, useEffect, useCallback} from 'react';
+import {SafeAreaView, StyleSheet, StatusBar} from 'react-native';
+import {Portal, Provider, Button} from 'react-native-paper';
+// components used
 import WeekView from './react-native-week-view/index.js';
-import {useDispatch} from 'react-redux';
-import ModalSingleAula from './modalSingleAula';
-import {store} from '../../store/store';
-import {Portal, Provider} from 'react-native-paper';
 import Loading from '../universalComponents/Loading.js';
+import ModalSingleAula from './modalSingleAula';
+import ModalDatePicker from './modalDatePicker';
 
 //se type = 1 retorna a data senão retorna a hora e minutos
 const parseDate = (stringDate, type) => {
@@ -32,7 +25,7 @@ const parseDate = (stringDate, type) => {
     return hours_minutes;
   }
 };
-//parametros anteriores (hours e minutes)
+//parametros anteriores (hours e minutes).
 
 const parseObject = json => {
   const objectParsed = {
@@ -54,11 +47,6 @@ const parseObject = json => {
   return objectParsed;
 };
 
-const MyRefreshComponent = ({style}) => (
-  // Just an example
-  <ActivityIndicator style={style} color="red" size="large" />
-);
-
 const Horario = () => {
   const [seeModal, setSeeModal] = useState(false);
   const [events, setEvents] = useState();
@@ -66,13 +54,9 @@ const Horario = () => {
   const [isLoading, setLoading] = useState(true);
   const [aulaPressed, setAulaPressed] = useState('');
 
+  let weekViewRef;
+
   const URL = 'http://10.0.2.2:5000/api/aulas/';
-
-  const dispatch = useDispatch();
-
-  store.subscribe(() => {
-    setSeeModal(store.getState().HorariosReducers.visible);
-  });
 
   //fetching info
   useEffect(() => {
@@ -91,7 +75,16 @@ const Horario = () => {
         throw error;
       })
       .finally(() => setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const seeAulaModal = useCallback(
+    aula => {
+      setAulaPressed(aula);
+      setSeeModal(true);
+    },
+    [setAulaPressed, setSeeModal],
+  );
 
   const onEventPress = ({
     id,
@@ -110,8 +103,13 @@ const Horario = () => {
       professor: professor,
     };
 
-    setAulaPressed(aula);
-    dispatch(OpenModalAction());
+    seeAulaModal(aula);
+  };
+
+  const changeDate = date => {
+    console.log(date);
+    weekViewRef.goToDate(date, true);
+    setSelectedDate(date);
   };
 
   return (
@@ -122,34 +120,43 @@ const Horario = () => {
         <Provider>
           <Portal>
             {seeModal === true && (
-              <ModalSingleAula visible={seeModal} aula={aulaPressed} />
+              <ModalSingleAula
+                visible={seeModal}
+                aula={aulaPressed}
+                setModal={setSeeModal}
+              />
             )}
           </Portal>
-          <View style={styles.container}>
-            <StatusBar barStyle="dark-content" />
-            <SafeAreaView style={styles.container}>
-              <WeekView
-                events={events}
-                selectedDate={selectedDate}
-                numberOfDays={6}
-                onEventPress={onEventPress}
-                headerStyle={styles.header}
-                headerTextStyle={styles.headerText}
-                hourTextStyle={styles.hourText}
-                eventContainerStyle={styles.eventContainer}
-                formatDateHeader={'ddd DD'}
-                hoursInDisplay={12}
-                showNowLine={false}
-                timeStep={60}
-                startHour={9}
-                weekStartsOn={1}
-                fixedHorizontally={false}
-                showTitle={true}
-                isRefreshing={false}
-                RefreshComponent={MyRefreshComponent}
-              />
-            </SafeAreaView>
-          </View>
+          <StatusBar barStyle="dark-content" />
+          <ModalDatePicker
+            selectedDate={selectedDate}
+            changeDate={changeDate}
+          />
+          <SafeAreaView style={styles.container}>
+            <WeekView
+              ref={ref => {
+                weekViewRef = ref;
+              }}
+              events={events}
+              selectedDate={selectedDate}
+              numberOfDays={6}
+              onEventPress={onEventPress}
+              headerStyle={styles.header}
+              headerTextStyle={styles.headerText}
+              hourTextStyle={styles.hourText}
+              eventContainerStyle={styles.eventContainer}
+              formatDateHeader={'ddd DD'}
+              hoursInDisplay={10}
+              showNowLine={false}
+              timeStep={60}
+              startHour={9}
+              weekStartsOn={1}
+              fixedHorizontally={false}
+              showTitle={true}
+              isRefreshing={false}
+              locale={'pt'}
+            />
+          </SafeAreaView>
         </Provider>
       )}
     </>
