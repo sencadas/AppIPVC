@@ -1,16 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  StatusBar,
-  ActivityIndicator,
-  Button,
-} from 'react-native';
+import React, {useState, useEffect, useCallback} from 'react';
+import {SafeAreaView, StyleSheet, StatusBar} from 'react-native';
+import {Portal, Provider, Button} from 'react-native-paper';
+// components used
 import WeekView from './react-native-week-view/index.js';
-import {useDispatch} from 'react-redux';
-import ModalSingleAula from './modalSingleAula';
-import {Portal, Provider} from 'react-native-paper';
 import Loading from '../universalComponents/Loading.js';
+import ModalSingleAula from './modalSingleAula';
+import ModalDatePicker from './modalDatePicker';
 
 //se type = 1 retorna a data senão retorna a hora e minutos
 const parseDate = (stringDate, type) => {
@@ -52,11 +47,6 @@ const parseObject = json => {
   return objectParsed;
 };
 
-const MyRefreshComponent = ({style}) => (
-  // Just an example
-  <ActivityIndicator style={style} color="red" size="large" />
-);
-
 const Horario = () => {
   const [seeModal, setSeeModal] = useState(false);
   const [events, setEvents] = useState();
@@ -68,8 +58,6 @@ const Horario = () => {
 
   const URL = 'http://10.0.2.2:5000/api/aulas/';
 
-  console.log(URL);
-
   //fetching info
   useEffect(() => {
     fetch(URL)
@@ -77,7 +65,6 @@ const Horario = () => {
       .then(json => {
         let horarios = [];
 
-        console.log(json.aulas);
         for (let i = 0; i < json.aulas.length; i++) {
           horarios.push(parseObject(json.aulas[i]));
         }
@@ -90,6 +77,14 @@ const Horario = () => {
       .finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const seeAulaModal = useCallback(
+    aula => {
+      setAulaPressed(aula);
+      setSeeModal(true);
+    },
+    [setAulaPressed, setSeeModal],
+  );
 
   const onEventPress = ({
     id,
@@ -108,12 +103,13 @@ const Horario = () => {
       professor: professor,
     };
 
-    setAulaPressed(aula);
-    setSeeModal(true);
+    seeAulaModal(aula);
   };
 
-  const changeDate = () => {
-    weekViewRef.goToDate(new Date(2021, 11, 1), true);
+  const changeDate = date => {
+    console.log(date);
+    weekViewRef.goToDate(date, true);
+    setSelectedDate(date);
   };
 
   return (
@@ -132,11 +128,9 @@ const Horario = () => {
             )}
           </Portal>
           <StatusBar barStyle="dark-content" />
-          <Button
-            title="go To Date Title"
-            onPress={() => {
-              changeDate();
-            }}
+          <ModalDatePicker
+            selectedDate={selectedDate}
+            changeDate={changeDate}
           />
           <SafeAreaView style={styles.container}>
             <WeekView
@@ -160,7 +154,6 @@ const Horario = () => {
               fixedHorizontally={false}
               showTitle={true}
               isRefreshing={false}
-              RefreshComponent={MyRefreshComponent}
               locale={'pt'}
             />
           </SafeAreaView>
