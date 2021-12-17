@@ -6,6 +6,7 @@ import WeekView from './react-native-week-view/index.js';
 import Loading from '../universalComponents/Loading.js';
 import ModalSingleAula from './modalSingleAula';
 import ModalDatePicker from './modalDatePicker';
+import {getAulas} from '../../config';
 
 //se type = 1 retorna a data senão retorna a hora e minutos
 const parseDate = (stringDate, type) => {
@@ -56,7 +57,7 @@ const Horario = () => {
 
   let weekViewRef;
 
-  const URL = 'http://10.0.2.2:5000/api/aulas/';
+  const URL = getAulas;
 
   //fetching info
   useEffect(() => {
