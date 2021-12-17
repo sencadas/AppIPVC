@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {List} from 'react-native-paper';
 import ListaAnos from './ListaAnos';
 import Styles from './Styles';
 import {
@@ -9,32 +10,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
-const PlanosCurriculares = () => {
-  const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
-
-  const URL = 'http://192.168.1.9:5000/api/planosCurriculares';
-
-  /* function setAnos(json) {
-    for (let i = 0; i < json.length; i++) {
-      if (!data.ano.includes(json[i].Ano_Curricular)) {
-        setData(json[i].Ano_Curricular);
-      }
-    }
-  } */
-
-  useEffect(() => {
-    fetch(URL)
-      .then(response => response.json())
-      .then(json => {
-        setData(json.planCurr);
-      })
-      .catch(error => {
-        throw error;
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
+const formatData = data => {
   let dataOrganized = [];
   //get ano
   for (let i = 0; i < data.length; i++) {
@@ -44,15 +20,23 @@ const PlanosCurriculares = () => {
     ) {
       dataOrganized.push({
         ano: data[i].Ano_Curricular,
-        UCs: [],
+        UCs: {
+          primeiroSemestre: [],
+          segundoSemestre: [],
+        },
       });
     }
   }
-  //get UCs
+  //get UCs e epara por semestre
   for (let j = 0; j < data.length; j++) {
     for (let i = 0; i < dataOrganized.length; i++) {
       if (dataOrganized[i].ano === data[j].Ano_Curricular) {
-        dataOrganized[i].UCs.push(data[j]);
+        if (data[j].Semestre_Curricular === 'S1') {
+          dataOrganized[i].UCs.primeiroSemestre.push(data[j]);
+        }
+        if (data[j].Semestre_Curricular === 'S2') {
+          dataOrganized[i].UCs.segundoSemestre.push(data[j]);
+        }
       }
     }
   }
@@ -60,6 +44,27 @@ const PlanosCurriculares = () => {
   dataOrganized.sort(function (a, b) {
     return +(a.ano > b.ano) || +(a.ano === b.ano) - 1;
   });
+
+  return dataOrganized;
+};
+
+const PlanosCurriculares = () => {
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+
+  const URL = 'http://192.168.1.9:5000/api/planosCurriculares';
+
+  useEffect(() => {
+    fetch(URL)
+      .then(response => response.json())
+      .then(json => {
+        setData(formatData(json.planCurr));
+      })
+      .catch(error => {
+        throw error;
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <SafeAreaView>
@@ -73,14 +78,15 @@ const PlanosCurriculares = () => {
               style={Styles.inputSearch}
             />
           </View>
-
-          <FlatList
-            data={dataOrganized}
-            keyExtractor={(item, index) => {
-              return index.toString();
-            }}
-            renderItem={({item, index}) => <ListaAnos data={item} id={index} />}
-          />
+          <List.AccordionGroup>
+            <FlatList
+              data={data}
+              keyExtractor={(item, index) => {
+                return index.toString();
+              }}
+              renderItem={({item}) => <ListaAnos data={item} />}
+            />
+          </List.AccordionGroup>
         </View>
       )}
     </SafeAreaView>
