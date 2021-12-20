@@ -93,9 +93,7 @@ const DrawerContent = props => {
         <DrawerItem
           icon={({size, color}) => {
             color = 'gray';
-            if (rotaAtual === 'calendarioLetivo') {
-              color = 'tomato';
-            }
+
             return <Ionicons name={'log-out'} size={size} color={color} />;
           }}
           label="Sair"
