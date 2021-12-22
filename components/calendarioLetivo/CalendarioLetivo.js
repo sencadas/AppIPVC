@@ -43,6 +43,7 @@ const CalendarioLetivo = () => {
               <View>
                 <List.Section>
                   <List.Accordion
+                    style={Styles.container}
                     title="Períodos"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Item
@@ -63,6 +64,7 @@ const CalendarioLetivo = () => {
                   </List.Accordion>
 
                   <List.Accordion
+                    style={Styles.container}
                     title="Paragem Letiva"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Item
@@ -97,11 +99,14 @@ const CalendarioLetivo = () => {
                   </List.Accordion>
 
                   <List.Accordion
+                    style={Styles.container}
                     title="Feriados"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Accordion
                       left={() => (
-                        <Text style={Styles.text}>Primeiro Semestre</Text>
+                        <Text style={Styles.text_Introduction}>
+                          Primeiro Semestre
+                        </Text>
                       )}>
                       <List.Item
                         left={() => (
@@ -113,12 +118,14 @@ const CalendarioLetivo = () => {
                     </List.Accordion>
                     <List.Accordion
                       left={() => (
-                        <Text style={Styles.text}>Segundo Semestre</Text>
+                        <Text style={Styles.text_Introduction}>
+                          Segundo Semestre
+                        </Text>
                       )}>
                       <List.Item
                         left={() => (
                           <Text style={Styles.text}>
-                            {item.Feriados.PrimeiroSemestre}
+                            {item.Feriados.SegundoSemestre}
                           </Text>
                         )}
                       />
@@ -126,6 +133,7 @@ const CalendarioLetivo = () => {
                   </List.Accordion>
 
                   <List.Accordion
+                    style={Styles.container}
                     title="Pagamento de Propinas"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Item
@@ -147,6 +155,7 @@ const CalendarioLetivo = () => {
                   </List.Accordion>
 
                   <List.Accordion
+                    style={Styles.container}
                     title="Dias Comemorativos"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Item
@@ -201,11 +210,12 @@ const CalendarioLetivo = () => {
                   </List.Accordion>
 
                   <List.Accordion
+                    style={Styles.container}
                     title="Período de Exames"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Accordion
                       left={() => (
-                        <Text style={Styles.text}>
+                        <Text style={Styles.text_Introduction}>
                           Época Normal e Época de Recurso
                         </Text>
                       )}>
@@ -230,7 +240,9 @@ const CalendarioLetivo = () => {
                     </List.Accordion>
                     <List.Accordion
                       left={() => (
-                        <Text style={Styles.text}>Época Especial</Text>
+                        <Text style={Styles.text_Introduction}>
+                          Época Especial
+                        </Text>
                       )}>
                       <List.Item
                         left={() => (
