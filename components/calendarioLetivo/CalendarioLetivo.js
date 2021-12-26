@@ -111,7 +111,7 @@ const CalendarioLetivo = () => {
                       <List.Item
                         left={() => (
                           <Text style={Styles.text}>
-                            {item.Feriados.PrimeiroSemestre}
+                            {item.Feriados.PrimeiroSemestre.join('\n')}
                           </Text>
                         )}
                       />
@@ -125,7 +125,7 @@ const CalendarioLetivo = () => {
                       <List.Item
                         left={() => (
                           <Text style={Styles.text}>
-                            {item.Feriados.SegundoSemestre}
+                            {item.Feriados.SegundoSemestre.join('\n')}
                           </Text>
                         )}
                       />
