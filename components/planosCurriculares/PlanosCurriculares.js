@@ -1,121 +1,114 @@
 import React, {useState, useEffect} from 'react';
+import {List, Searchbar} from 'react-native-paper';
+import ListaAnos from './ListaAnos';
+import Styles from './Styles';
 import {
   SafeAreaView,
   View,
-  StyleSheet,
-  Text,
   TextInput,
   FlatList,
   ActivityIndicator,
 } from 'react-native';
 
+const formatData = data => {
+  let dataOrganized = [];
+  //get ano
+  for (let i = 0; i < data.length; i++) {
+    if (
+      !dataOrganized.some(e => e.ano === data[i].Ano_Curricular) &&
+      data[i].Ano_Curricular !== undefined
+    ) {
+      dataOrganized.push({
+        ano: data[i].Ano_Curricular,
+        UCs: {
+          primeiroSemestre: [],
+          segundoSemestre: [],
+        },
+      });
+    }
+  }
+  //get UCs e epara por semestre
+  for (let j = 0; j < data.length; j++) {
+    for (let i = 0; i < dataOrganized.length; i++) {
+      if (dataOrganized[i].ano === data[j].Ano_Curricular) {
+        if (data[j].Semestre_Curricular === 'S1') {
+          dataOrganized[i].UCs.primeiroSemestre.push(data[j]);
+        }
+        if (data[j].Semestre_Curricular === 'S2') {
+          dataOrganized[i].UCs.segundoSemestre.push(data[j]);
+        }
+      }
+    }
+  }
+  //organizar a por ano
+  dataOrganized.sort(function (a, b) {
+    return +(a.ano > b.ano) || +(a.ano === b.ano) - 1;
+  });
+
+  return dataOrganized;
+};
+
 const PlanosCurriculares = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const onChangeSearch = query => setSearchQuery(query);
 
-  const URL = 'http://localhost:5000/api/planosCurriculares';
+  const URL = 'http://192.168.1.9:5000/api/planosCurriculares';
 
   useEffect(() => {
     fetch(URL)
       .then(response => response.json())
       .then(json => {
-        setData(json.planCurr);
+        setData(formatData(json.planCurr));
       })
       .catch(error => {
-        console.log('aqui');
         throw error;
       })
       .finally(() => setLoading(false));
   }, []);
 
+  /* const pesquisar = ({item}) => {
+    // when no input, show all
+    if (data.searchPhrase === '') {
+      return <Item name={item.name} details={item.details} />;
+    }
+    // filter of the name
+    if (
+      item.name
+        .toUpperCase()
+        .includes(data.searchPhrase.toUpperCase().trim().replace(/\s/g, ''))
+    ) {
+      return <Item name={item.name} details={item.details} />;
+    }
+  }; */
+
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView>
       {isLoading ? (
         <ActivityIndicator size={'large'} color={'#2fbbf0'} />
       ) : (
-        <View style={styles.main}>
-          <Text style={styles.header}>Planos Curriculares</Text>
-          <View style={styles.textInputView}>
-            <TextInput
-              placeholder={'Perquisar por disciplina...'}
-              style={styles.inputSearch}
+        <View style={Styles.container}>
+          <View style={Styles.textInputView}>
+            <Searchbar
+              placeholder="Pesquisar"
+              onChangeText={onChangeSearch}
+              value={searchQuery}
             />
           </View>
-
-          <FlatList
-            data={data}
-            keyExtractor={item => item._id}
-            renderItem={({item}) => (
-              <View style={styles.card}>
-                <Text style={styles.titleCard}>{item.Unidade_Curricular}</Text>
-                <Text style={styles.cred}>Créditos: {item.ects}</Text>
-                <Text style={styles.anoSemestre}>
-                  Ano: {item.Ano_Curricular}, {item.Semestre_Curricular}
-                </Text>
-                <Text style={styles.anoSemestre}>
-                  TP: {item.TP}, P: {item.P}
-                </Text>
-              </View>
-            )}
-          />
+          <List.AccordionGroup>
+            <FlatList
+              data={data}
+              keyExtractor={(item, index) => {
+                return index.toString();
+              }}
+              renderItem={({item}) => <ListaAnos data={item} />}
+            />
+          </List.AccordionGroup>
         </View>
       )}
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    top: 10,
-    width: '100%',
-    flex: 1,
-  },
-  header: {
-    fontSize: 40,
-    marginLeft: 23,
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  card: {
-    flex: 1,
-    marginTop: 15,
-    backgroundColor: '#ebebeb',
-    padding: 15,
-    marginLeft: 10,
-    marginRight: 10,
-    borderRadius: 20,
-  },
-  Text: {
-    justifyContent: 'center',
-    marginVertical: 8,
-    marginHorizontal: 16,
-    padding: 20,
-  },
-  item: {
-    height: 100,
-    justifyContent: 'center',
-    marginVertical: 8,
-    marginHorizontal: 16,
-    padding: 20,
-  },
-  titleCard: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    marginBottom: 12,
-  },
-  inputSearch: {
-    marginTop: 13,
-    height: 39,
-    width: '90%',
-    backgroundColor: '#EBEBEB',
-    borderRadius: 20,
-    paddingLeft: 15,
-  },
-  textInputView: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: 5,
-  },
-});
 
 export default PlanosCurriculares;
