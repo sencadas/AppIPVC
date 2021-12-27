@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import { green100 } from 'react-native-paper/lib/typescript/styles/colors';
 const Styles = StyleSheet.create({
   container: {
     flex: 1,

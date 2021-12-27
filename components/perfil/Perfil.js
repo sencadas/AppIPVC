@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+// import {getCalendarioLetivo, address} from '../../config';
 import {
   StyleSheet,
   View,
@@ -11,6 +12,21 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Styles from './Styles.js';
 
 const Perfil = () => {
+  const [data, setData] = useState([]);
+
+  //const URL = address + getCalendarioLetivo;
+
+  // useEffect(() => {
+  //   fetch(URL)
+  //     .then(response => response.json())
+  //     .then(json => {
+  //       console.log(json.planCurr);
+  //       setData(json.planCurr);
+  //     })
+  //     .catch(error => {
+  //       throw error;
+  //     });
+  // }, [URL]);
   return (
     <SafeAreaView style={Styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
