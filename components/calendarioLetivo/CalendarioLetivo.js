@@ -1,15 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {List} from 'react-native-paper';
 import {getCalendarioLetivo, address} from '../../config';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TextInput,
-  FlatList,
-  ActivityIndicator,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, SafeAreaView, FlatList} from 'react-native';
 import Styles from './Styles.js';
 
 const CalendarioLetivo = () => {

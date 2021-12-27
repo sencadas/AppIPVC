@@ -2,13 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {List, Searchbar} from 'react-native-paper';
 import ListaAnos from './ListaAnos';
 import Styles from './Styles';
-import {
-  SafeAreaView,
-  View,
-  TextInput,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
+import {SafeAreaView, View, FlatList, ActivityIndicator} from 'react-native';
+import {getPlanoCurricular, address} from '../../config';
 
 const formatData = data => {
   let dataOrganized = [];
@@ -54,7 +49,7 @@ const PlanosCurriculares = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const onChangeSearch = query => setSearchQuery(query);
 
-  const URL = 'http://192.168.1.9:5000/api/planosCurriculares';
+  const URL = address + getPlanoCurricular;
 
   useEffect(() => {
     fetch(URL)
