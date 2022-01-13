@@ -17,7 +17,6 @@ const Styles = StyleSheet.create({
     marginBottom: 5,
   },
   container: {
-    width: 385,
     height: 'auto',
     backgroundColor: 'white',
     marginLeft: 15,
