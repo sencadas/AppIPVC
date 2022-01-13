@@ -13,7 +13,6 @@ const PlanosCurriculares = ({data, fetchData}) => {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-  console.log(data);
 
   return (
     <SafeAreaView>
