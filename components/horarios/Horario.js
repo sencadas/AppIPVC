@@ -117,8 +117,6 @@ const Horario = ({data, fetchData}) => {
     setSelectedDate(date);
   };
 
-  console.log(data);
-
   return (
     <>
       {data.loading === true ? (
