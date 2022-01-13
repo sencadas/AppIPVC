@@ -6,9 +6,10 @@ import WeekView from './react-native-week-view/index.js';
 import Loading from '../universalComponents/Loading.js';
 import ModalSingleAula from './modalSingleAula';
 import ModalDatePicker from './modalDatePicker';
-import {getAulas, address} from '../../config';
+import {getHorarios} from '../../store/horarios/actions';
+import {connect} from 'react-redux';
 
-//se type = 1 retorna a data senão retorna a hora e minutos
+/* //se type = 1 retorna a data senão retorna a hora e minutos
 const parseDate = (stringDate, type) => {
   let hours = stringDate.substr(11, 2);
   let minutes = stringDate.substr(14, 2);
@@ -26,9 +27,9 @@ const parseDate = (stringDate, type) => {
     return hours_minutes;
   }
 };
-//parametros anteriores (hours e minutes).
+//parametros anteriores (hours e minutes). */
 
-const parseObject = json => {
+/* const parseObject = json => {
   const objectParsed = {
     _id: json._id,
     color: json.color,
@@ -46,21 +47,24 @@ const parseObject = json => {
   };
 
   return objectParsed;
-};
+}; */
 
-const Horario = () => {
+const Horario = ({data, fetchData}) => {
   const [seeModal, setSeeModal] = useState(false);
-  const [events, setEvents] = useState();
+  //const [events, setEvents] = useState();
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [isLoading, setLoading] = useState(true);
+  //const [isLoading, setLoading] = useState(true);
   const [aulaPressed, setAulaPressed] = useState('');
 
   let weekViewRef;
 
-  const URL = address + getAulas;
-
+  //const URL = address + getAulas;
   //fetching info
   useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  /* useEffect(() => {
     fetch(URL)
       .then(response => response.json())
       .then(json => {
@@ -77,7 +81,7 @@ const Horario = () => {
       })
       .finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, []); */
 
   const seeAulaModal = useCallback(
     aula => {
@@ -113,9 +117,11 @@ const Horario = () => {
     setSelectedDate(date);
   };
 
+  console.log(data);
+
   return (
     <>
-      {isLoading === true ? (
+      {data.loading === true ? (
         <Loading />
       ) : (
         <Provider>
@@ -138,7 +144,7 @@ const Horario = () => {
               ref={ref => {
                 weekViewRef = ref;
               }}
-              events={events}
+              events={data.data}
               selectedDate={selectedDate}
               numberOfDays={6}
               onEventPress={onEventPress}
@@ -164,6 +170,18 @@ const Horario = () => {
   );
 };
 
+const mapStateToProps = state => {
+  return {
+    data: state.HorariosReducers,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchData: () => dispatch(getHorarios()),
+  };
+};
+
 const styles = StyleSheet.create({
   container: {
     zIndex: 0,
@@ -186,4 +204,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Horario;
+export default connect(mapStateToProps, mapDispatchToProps)(Horario);

@@ -1,19 +1,28 @@
 const initialState = {
-  //info a ser mostrada
-  visible: false,
+  loading: true,
+  //referentes ao user logado
+  data: null,
+  error: null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'CLOSE_MODAL_SINGLE_AULA':
+    case 'FETCH_HORARIO_REQUEST':
       return {
         ...state,
-        visible: action.visible,
+        loading: true,
       };
-    case 'OPEN_MODAL_SINGLE_AULA':
+    case 'FETCH_HORARIO_SUCCESS':
+      return {
+        loading: false,
+        data: action.payload,
+        error: null,
+      };
+    case 'FETCH_HORARIO_FAILURE':
       return {
         ...state,
-        visible: action.visible,
+        loading: false,
+        error: action.payload,
       };
     default:
       return state;
