@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ScrollView, Linking} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Card, Title, Paragraph, Button} from 'react-native-paper';
 import Styles from './Styles.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -13,6 +12,7 @@ const Home = ({data, fetchData}) => {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+  console.log(data);
 
   return (
     <>
