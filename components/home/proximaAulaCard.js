@@ -7,13 +7,16 @@ import Loading from '../universalComponents/Loading.js';
 
 const ProximaAulaCard = ({data}) => {
   const [isLoading, setIsLoading] = React.useState(true);
+
   const procurarAulaAtual = aulas => {
     const currentDate = new Date();
+    console.log(aulas);
     const aulaProxima = aulas.filter(aula => {
       if (aula.startDate >= currentDate) {
         return aula;
       }
     });
+
     setIsLoading(false);
     return aulaProxima[0];
   };
