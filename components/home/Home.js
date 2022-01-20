@@ -12,7 +12,6 @@ const Home = ({data, fetchData}) => {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-  console.log(data);
 
   return (
     <>
