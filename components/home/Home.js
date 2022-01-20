@@ -23,7 +23,7 @@ const Home = ({data, fetchData}) => {
           <ScrollView>
             <Text style={Styles.welcome}>Olá {data.AuthReducers.name}</Text>
             <Text style={Styles.Title}>Próxima Aula</Text>
-            <ProximaAulaCard data={data.HorariosReducers.data} />
+            <ProximaAulaCard data={data.HorariosReducers.proximaAula} />
             <Text style={Styles.Title}>Próxima Época de Avaliação</Text>
             <Card style={Styles.container}>
               <Card.Content>
