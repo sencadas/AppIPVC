@@ -53,18 +53,7 @@ const Home = () => {
             </View>
           </Card.Content>
         </Card>
-        <Text style={Styles.Title}>Próxima Semestre de Aulas</Text>
-        <Card style={Styles.container}>
-          <Card.Content>
-            <View style={{flexDirection: 'row'}}>
-              <Ionicons name={'calendar'} size={40} color={'black'} />
-              <Title style={Styles.titleClass}>2º Semestre</Title>
-            </View>
-            <View style={Styles.info}>
-              <Text>21 de Fevereiro a 16 de Julho</Text>
-            </View>
-          </Card.Content>
-        </Card>
+
         <Text style={Styles.Title}>Notícias</Text>
         <Card style={Styles.container}>
           <Card.Cover

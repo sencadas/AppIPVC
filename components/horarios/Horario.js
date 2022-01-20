@@ -144,7 +144,7 @@ const Horario = ({data, fetchData}) => {
               }}
               events={data.data}
               selectedDate={selectedDate}
-              numberOfDays={6}
+              numberOfDays={1}
               onEventPress={onEventPress}
               headerStyle={styles.header}
               headerTextStyle={styles.headerText}

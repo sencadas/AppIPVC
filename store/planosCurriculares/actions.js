@@ -65,6 +65,7 @@ const formatData = data => {
 
 export const getPlanosCurriculares = () => {
   const URL = address + getPlanoCurricular;
+
   return dispatch => {
     dispatch(fetchPlanRequest());
     fetch(URL)
