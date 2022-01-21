@@ -42,7 +42,7 @@ const formatData = data => {
       });
     }
   }
-  //get UCs e epara por semestre
+  //get UCs e separa por semestre
   for (let j = 0; j < data.length; j++) {
     for (let i = 0; i < dataOrganized.length; i++) {
       if (dataOrganized[i].ano === data[j].Ano_Curricular) {
