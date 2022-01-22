@@ -2,8 +2,10 @@ const initialState = {
   loading: false,
   //referentes ao user logado
   email: null,
-  name: null,
-  type: null,
+  nome: null,
+  id_curso: null,
+  unidade_orcanica: null,
+  num_utilizador: null,
   error: null,
 };
 export default (state = initialState, action) => {
@@ -17,8 +19,10 @@ export default (state = initialState, action) => {
       return {
         loading: false,
         email: action.payload.email,
-        name: action.payload.name,
-        type: action.payload.type,
+        nome: action.payload.nome,
+        id_curso: action.payload.id_curso,
+        unidade_orcanica: action.payload.unidade_organica,
+        num_utilizador: action.payload.num_utilizador,
         error: null,
       };
     case 'FETCH_AUTH_FAILURE':

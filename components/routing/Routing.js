@@ -23,7 +23,7 @@ const Routing = () => {
         <Loading />
       ) : (
         <NavigationContainer>
-          {user.name === null ? <Login /> : <DrawerNavigation />}
+          {user.nome === null ? <Login /> : <DrawerNavigation />}
         </NavigationContainer>
       )}
     </>
