@@ -37,8 +37,10 @@ export const Init = () => {
     dispatch(fetchAuthRequest());
     const user = {
       email: await AsyncStorage.getItem('email'),
-      name: await AsyncStorage.getItem('name'),
-      type: await AsyncStorage.getItem('type'),
+      nome: await AsyncStorage.getItem('nome'),
+      id_curso: await AsyncStorage.getItem('id_curso'),
+      num_utilizador: await AsyncStorage.getItem('num_utilizador'),
+      unidade_organica: await AsyncStorage.getItem('unidade_organica'),
     };
     if (user.email !== '') {
       dispatch(fetchAuthSuccess(user));
@@ -46,41 +48,21 @@ export const Init = () => {
   };
 };
 
-export const LoginAction = (username, password) => {
-  const URL = 'http://10.0.2.2:5000/api/Login/' + username + '/' + password;
-  return dispatch => {
-    //Exemplo para post
-    /* const requestOptions = {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: username,
-      password: password,
-    }),
-  }; */
-    dispatch(fetchAuthRequest);
-    fetch(URL)
-      .then(response => response.json())
-      .then(async json => {
-        const email = json.email;
-        const name = json.name;
-        const type = json.type;
+export const LoginAction = data => {
+  return async dispatch => {
+    const {email, id_curso, nome, num_utilizador, unidade_organica} = data;
+    console.log(data);
 
-        dispatch(fetchAuthSuccess(json));
-        try {
-          await AsyncStorage.setItem('email', email);
-          await AsyncStorage.setItem('name', name);
-          await AsyncStorage.setItem('type', type);
-        } catch (error) {
-          console.log('Erro ao inserir no asyncStorage: ' + error);
-        }
-      })
-      .catch(error => {
-        dispatch(fetchAuthFailure(error));
-      });
+    dispatch(fetchAuthSuccess(data));
+    try {
+      await AsyncStorage.setItem('email', email);
+      await AsyncStorage.setItem('nome', nome);
+      await AsyncStorage.setItem('id_curso', id_curso);
+      await AsyncStorage.setItem('num_utilizador', num_utilizador);
+      await AsyncStorage.setItem('unidade_organica', unidade_organica);
+    } catch (error) {
+      console.log('Erro ao inserir no asyncStorage: ' + error);
+    }
   };
 };
 
