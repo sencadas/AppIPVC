@@ -30,11 +30,11 @@ const formatData = data => {
   //get ano
   for (let i = 0; i < data.length; i++) {
     if (
-      !dataOrganized.some(e => e.ano === data[i].Ano_Curricular) &&
-      data[i].Ano_Curricular !== undefined
+      !dataOrganized.some(e => e.ano === data[i].ano_curricular) &&
+      data[i].ano_curricular !== undefined //Verifaicação para não acrecentar ao array as cadeiras com ano curricular undefined
     ) {
       dataOrganized.push({
-        ano: data[i].Ano_Curricular,
+        ano: data[i].ano_curricular,
         UCs: {
           primeiroSemestre: [],
           segundoSemestre: [],
@@ -45,11 +45,11 @@ const formatData = data => {
   //get UCs e separa por semestre
   for (let j = 0; j < data.length; j++) {
     for (let i = 0; i < dataOrganized.length; i++) {
-      if (dataOrganized[i].ano === data[j].Ano_Curricular) {
-        if (data[j].Semestre_Curricular === 'S1') {
+      if (dataOrganized[i].ano === data[j].ano_curricular) {
+        if (data[j].semestre_curricular === 'S1') {
           dataOrganized[i].UCs.primeiroSemestre.push(data[j]);
         }
-        if (data[j].Semestre_Curricular === 'S2') {
+        if (data[j].semestre_curricular === 'S2') {
           dataOrganized[i].UCs.segundoSemestre.push(data[j]);
         }
       }
@@ -63,17 +63,50 @@ const formatData = data => {
   return dataOrganized;
 };
 
+const procurarProxima = aulas => {
+  const currentDate = new Date();
+  const aulaProxima = aulas.filter(aula => {
+    if (aula.startDate >= currentDate) {
+      return aula;
+    }
+  });
+  return aulaProxima[0];
+};
+
 export const getPlanosCurriculares = () => {
-  const URL = address + getPlanoCurricular;
+  const URL = getPlanoCurricular;
+  var details = {
+    webservice: 'GetPlanoEstudosByCurso',
+    apikey: 'D0032758-23F9-4B5C-9235-7920BEE37E3C',
+    parametros: '{"cd_curso":"9119"}',
+  };
+
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + '=' + encodedValue);
+  }
+  formBody = formBody.join('&');
+
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded',
+      referer: 'functions',
+    },
+    body: formBody,
+  };
   return dispatch => {
     dispatch(fetchPlanRequest());
-    fetch(URL)
+    fetch(URL, requestOptions)
       .then(response => response.json())
       .then(async json => {
-        dispatch(fetchPlanSuccess(await formatData(json.planCurr)));
+        dispatch(fetchPlanSuccess(await formatData(json)));
       })
       .catch(error => {
         dispatch(fetchPlanFailure(error));
+        console.log('Erro fetch planos: ' + error);
       });
   };
 };

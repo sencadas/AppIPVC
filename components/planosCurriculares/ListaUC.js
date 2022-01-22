@@ -7,7 +7,7 @@ const ListaUC = ({data}) => {
   return (
     <View>
       <List.Item
-        title={data.Unidade_Curricular}
+        title={data.nm_unidade_curricular}
         description={
           <View>
             <Text>
