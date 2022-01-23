@@ -6,6 +6,7 @@ const initialState = {
   id_curso: null,
   unidade_orcanica: null,
   num_utilizador: null,
+  id_utilizador: null,
   error: null,
 };
 export default (state = initialState, action) => {
@@ -21,8 +22,9 @@ export default (state = initialState, action) => {
         email: action.payload.email,
         nome: action.payload.nome,
         id_curso: action.payload.id_curso,
-        unidade_orcanica: action.payload.unidade_organica,
+        unidade_organica: action.payload.unidade_organica,
         num_utilizador: action.payload.num_utilizador,
+        id_utilizador: action.payload.id_utilizador,
         error: null,
       };
     case 'FETCH_AUTH_FAILURE':
