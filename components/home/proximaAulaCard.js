@@ -5,12 +5,16 @@ import Styles from './Styles.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Loading from '../universalComponents/Loading.js';
 import {getHorarios} from '../../store/horarios/actions';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
-const ProximaAulaCard = ({data, fetchData}) => {
+const ProximaAulaCard = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    dispatch(getHorarios());
+  }, [dispatch]);
+
+  const data = useSelector(state => state.HorariosReducers);
+
   return (
     <>
       {data.loading ? (
@@ -43,7 +47,7 @@ const ProximaAulaCard = ({data, fetchData}) => {
   );
 };
 
-const mapStateToProps = state => {
+/* const mapStateToProps = state => {
   return {
     data: state.HorariosReducers,
   };
@@ -53,6 +57,6 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchData: () => dispatch(getHorarios()),
   };
-};
+}; */
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProximaAulaCard);
+export default ProximaAulaCard;

@@ -4,15 +4,19 @@ import ListaAnos from './ListaAnos';
 import Styles from './assets/styles/Styles';
 import Loading from '../universalComponents/Loading.js';
 import {SafeAreaView, View, FlatList} from 'react-native';
-import {connect} from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
 import {getPlanosCurriculares} from '../../store/planosCurriculares/actions';
 
-const PlanosCurriculares = ({data, fetchData}) => {
+const PlanosCurriculares = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const onChangeSearch = query => setSearchQuery(query);
+
+  const dispatch = useDispatch();
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    dispatch(getPlanosCurriculares());
+  }, [dispatch]);
+
+  const data = useSelector(state => state.PlanosCurricularesReducers);
 
   return (
     <SafeAreaView>
@@ -40,7 +44,7 @@ const PlanosCurriculares = ({data, fetchData}) => {
   );
 };
 
-const mapStateToProps = state => {
+/* const mapStateToProps = state => {
   return {
     data: state.PlanosCurricularesReducers,
   };
@@ -50,6 +54,6 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchData: () => dispatch(getPlanosCurriculares()),
   };
-};
+}; */
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlanosCurriculares);
+export default PlanosCurriculares;
