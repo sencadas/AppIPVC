@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {List} from 'react-native-paper';
-import Styles from './Styles';
+import Styles from './assets/styles/Styles';
 import ListaSemestre from './ListaSemestre';
 import View from 'react-native';
 

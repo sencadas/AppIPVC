@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {List, Searchbar} from 'react-native-paper';
 import ListaAnos from './ListaAnos';
-import Styles from './Styles';
+import Styles from './assets/styles/Styles';
 import Loading from '../universalComponents/Loading.js';
 import {SafeAreaView, View, FlatList} from 'react-native';
 import {connect} from 'react-redux';
@@ -27,15 +27,13 @@ const PlanosCurriculares = ({data, fetchData}) => {
               value={searchQuery}
             />
           </View>
-          <List.AccordionGroup>
-            <FlatList
-              data={data.data}
-              keyExtractor={(item, index) => {
-                return index.toString();
-              }}
-              renderItem={({item}) => <ListaAnos data={item} />}
-            />
-          </List.AccordionGroup>
+          <FlatList
+            data={data.data}
+            keyExtractor={(item, index) => {
+              return index.toString();
+            }}
+            renderItem={({item}) => <ListaAnos data={item} />}
+          />
         </View>
       )}
     </SafeAreaView>

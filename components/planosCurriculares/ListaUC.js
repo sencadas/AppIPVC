@@ -1,6 +1,6 @@
 import React from 'react';
 import {List} from 'react-native-paper';
-import Styles from './Styles';
+import Styles from '.assets/styles/Styles';
 import {Text, View} from 'react-native';
 
 const ListaUC = ({data}) => {
