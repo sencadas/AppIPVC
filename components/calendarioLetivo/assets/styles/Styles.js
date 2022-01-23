@@ -13,7 +13,7 @@ const Styles = StyleSheet.create({
     marginRight: 5,
   },
   container: {
-    padding: 10,
+    padding: 5,
   },
 });
 
