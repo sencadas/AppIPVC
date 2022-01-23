@@ -19,28 +19,30 @@ const PlanosCurriculares = () => {
   const data = useSelector(state => state.PlanosCurricularesReducers);
 
   return (
-    <SafeAreaView>
+    <>
       {data.loading ? (
         <Loading />
       ) : (
-        <View style={Styles.container}>
-          <View style={Styles.textInputView}>
-            <Searchbar
-              placeholder="Pesquisar"
-              onChangeText={onChangeSearch}
-              value={searchQuery}
+        <SafeAreaView>
+          <View style={Styles.container}>
+            <View style={Styles.textInputView}>
+              <Searchbar
+                placeholder="Pesquisar"
+                onChangeText={onChangeSearch}
+                value={searchQuery}
+              />
+            </View>
+            <FlatList
+              data={data.data}
+              keyExtractor={(item, index) => {
+                return index.toString();
+              }}
+              renderItem={({item}) => <ListaAnos data={item} />}
             />
           </View>
-          <FlatList
-            data={data.data}
-            keyExtractor={(item, index) => {
-              return index.toString();
-            }}
-            renderItem={({item}) => <ListaAnos data={item} />}
-          />
-        </View>
+        </SafeAreaView>
       )}
-    </SafeAreaView>
+    </>
   );
 };
 

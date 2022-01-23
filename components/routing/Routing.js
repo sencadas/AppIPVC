@@ -8,7 +8,8 @@ import {Init} from '../../store/auth/actions';
 import Loading from '../universalComponents/Loading';
 const Routing = () => {
   //Provisório
-  const user = useSelector(state => state.AuthReducers);
+  const UserLogged = useSelector(state => state.AuthReducers.userLogged);
+  const isLoading = useSelector(state => state.AuthReducers.loading);
 
   //Necessério para o login automático
   const dispatch = useDispatch();
@@ -19,11 +20,11 @@ const Routing = () => {
 
   return (
     <>
-      {user.loading === true ? (
+      {isLoading === true ? (
         <Loading />
       ) : (
         <NavigationContainer>
-          {user.nome === null ? <Login /> : <DrawerNavigation />}
+          {UserLogged === null ? <Login /> : <DrawerNavigation />}
         </NavigationContainer>
       )}
     </>

@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {SafeAreaView, StyleSheet, StatusBar} from 'react-native';
-import {Portal, Provider, Button} from 'react-native-paper';
+import {SafeAreaView, StatusBar} from 'react-native';
+import {Portal, Provider} from 'react-native-paper';
+import styles from './styles/horarioStyle';
 // components used
 import WeekView from './react-native-week-view/index.js';
 import Loading from '../universalComponents/Loading.js';
@@ -96,7 +97,7 @@ const Horario = () => {
               showNowLine={false}
               timeStep={60}
               startHour={9}
-              weekStartsOn={1}
+              weekStartsOn={6}
               fixedHorizontally={false}
               showTitle={true}
               isRefreshing={false}
@@ -108,27 +109,5 @@ const Horario = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    zIndex: 0,
-    flex: 1,
-    backgroundColor: '#FFF',
-  },
-  header: {
-    backgroundColor: '#4286f4',
-    borderColor: '#fff',
-  },
-  headerText: {
-    color: 'white',
-  },
-  hourText: {
-    color: 'black',
-  },
-  eventContainer: {
-    borderWidth: 1,
-    borderColor: 'black',
-  },
-});
 
 export default Horario;

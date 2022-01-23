@@ -4,9 +4,10 @@ import Styles from './assets/styles/Styles.js';
 import {useSelector} from 'react-redux';
 
 const Perfil = () => {
-  const fetchReduxUser = useSelector(state => state.AuthReducers);
+  const fetchReduxUser = useSelector(state => state.AuthReducers.userLogged);
   const [user, setUser] = useState('');
 
+  console.log(user);
   useEffect(() => {
     setUser(fetchReduxUser);
   }, [fetchReduxUser]);

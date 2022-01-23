@@ -35,15 +35,12 @@ export const logout = () => {
 export const Init = () => {
   return async dispatch => {
     dispatch(fetchAuthRequest());
-    const user = {
-      email: await AsyncStorage.getItem('email'),
-      nome: await AsyncStorage.getItem('nome'),
-      id_curso: await AsyncStorage.getItem('id_curso'),
-      num_utilizador: await AsyncStorage.getItem('num_utilizador'),
-      unidade_organica: await AsyncStorage.getItem('unidade_organica'),
-      id_utilizador: await AsyncStorage.getItem('id_utilizador'),
-    };
-    if (user.email !== '') {
+
+    let user = await AsyncStorage.getItem('userLogged');
+    let userParsed = await JSON.parse(user);
+
+    console.log(userParsed);
+    if (userParsed !== '') {
       dispatch(fetchAuthSuccess(user));
     }
   };
@@ -51,25 +48,12 @@ export const Init = () => {
 
 export const LoginAction = data => {
   return async dispatch => {
-    const {
-      email,
-      id_curso,
-      nome,
-      id_utilizador,
-      num_utilizador,
-      unidade_organica,
-    } = data[0];
-
-    console.log('email' + email);
+    let userLogged = await JSON.stringify(data[0]);
 
     dispatch(fetchAuthSuccess(data[0]));
+    console.log(data[0]);
     try {
-      await AsyncStorage.setItem('email', email);
-      await AsyncStorage.setItem('nome', nome);
-      await AsyncStorage.setItem('id_utilizador', id_utilizador);
-      await AsyncStorage.setItem('id_curso', id_curso);
-      await AsyncStorage.setItem('num_utilizador', num_utilizador);
-      await AsyncStorage.setItem('unidade_organica', unidade_organica);
+      await AsyncStorage.setItem('userLogged', userLogged);
     } catch (error) {
       console.log('Erro ao inserir no asyncStorage: ' + error);
     }
