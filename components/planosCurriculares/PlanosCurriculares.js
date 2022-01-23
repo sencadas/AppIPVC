@@ -1,18 +1,22 @@
 import React, {useState, useEffect} from 'react';
 import {List, Searchbar} from 'react-native-paper';
 import ListaAnos from './ListaAnos';
-import Styles from './Styles';
+import Styles from './assets/styles/Styles';
 import Loading from '../universalComponents/Loading.js';
 import {SafeAreaView, View, FlatList} from 'react-native';
-import {connect} from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
 import {getPlanosCurriculares} from '../../store/planosCurriculares/actions';
 
-const PlanosCurriculares = ({data, fetchData}) => {
+const PlanosCurriculares = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const onChangeSearch = query => setSearchQuery(query);
+
+  const dispatch = useDispatch();
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    dispatch(getPlanosCurriculares());
+  }, [dispatch]);
+
+  const data = useSelector(state => state.PlanosCurricularesReducers);
 
   return (
     <SafeAreaView>
@@ -27,31 +31,17 @@ const PlanosCurriculares = ({data, fetchData}) => {
               value={searchQuery}
             />
           </View>
-          <List.AccordionGroup>
-            <FlatList
-              data={data.data}
-              keyExtractor={(item, index) => {
-                return index.toString();
-              }}
-              renderItem={({item}) => <ListaAnos data={item} />}
-            />
-          </List.AccordionGroup>
+          <FlatList
+            data={data.data}
+            keyExtractor={(item, index) => {
+              return index.toString();
+            }}
+            renderItem={({item}) => <ListaAnos data={item} />}
+          />
         </View>
       )}
     </SafeAreaView>
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    data: state.PlanosCurricularesReducers,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchData: () => dispatch(getPlanosCurriculares()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlanosCurriculares);
+export default PlanosCurriculares;
