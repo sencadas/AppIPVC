@@ -47,16 +47,4 @@ const ProximaAulaCard = () => {
   );
 };
 
-/* const mapStateToProps = state => {
-  return {
-    data: state.HorariosReducers,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchData: () => dispatch(getHorarios()),
-  };
-}; */
-
 export default ProximaAulaCard;

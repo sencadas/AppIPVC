@@ -44,16 +44,4 @@ const PlanosCurriculares = () => {
   );
 };
 
-/* const mapStateToProps = state => {
-  return {
-    data: state.PlanosCurricularesReducers,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchData: () => dispatch(getPlanosCurriculares()),
-  };
-}; */
-
 export default PlanosCurriculares;
