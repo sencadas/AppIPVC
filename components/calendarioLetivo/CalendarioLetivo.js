@@ -2,12 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {List} from 'react-native-paper';
 import {getCalendarioLetivo, address} from '../../config';
 import {View, Text, SafeAreaView, FlatList} from 'react-native';
-import Styles from './Styles.js';
+import Styles from './assets/styles/Styles';
 
 const CalendarioLetivo = () => {
-  const [expanded, setExpanded] = React.useState(true);
-
-  const handlePress = () => setExpanded(!expanded);
   const [data, setData] = useState([]);
 
   const URL = address + getCalendarioLetivo;
@@ -35,7 +32,6 @@ const CalendarioLetivo = () => {
               <View>
                 <List.Section>
                   <List.Accordion
-                    style={Styles.container}
                     title="Períodos"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Item
@@ -56,7 +52,6 @@ const CalendarioLetivo = () => {
                   </List.Accordion>
 
                   <List.Accordion
-                    style={Styles.container}
                     title="Paragem Letiva"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Item
@@ -91,7 +86,6 @@ const CalendarioLetivo = () => {
                   </List.Accordion>
 
                   <List.Accordion
-                    style={Styles.container}
                     title="Feriados"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Accordion
@@ -125,7 +119,6 @@ const CalendarioLetivo = () => {
                   </List.Accordion>
 
                   <List.Accordion
-                    style={Styles.container}
                     title="Pagamento de Propinas"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Item
@@ -147,7 +140,6 @@ const CalendarioLetivo = () => {
                   </List.Accordion>
 
                   <List.Accordion
-                    style={Styles.container}
                     title="Dias Comemorativos"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Item
@@ -202,7 +194,6 @@ const CalendarioLetivo = () => {
                   </List.Accordion>
 
                   <List.Accordion
-                    style={Styles.container}
                     title="Período de Exames"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Accordion
@@ -211,22 +202,30 @@ const CalendarioLetivo = () => {
                           Época Normal e Época de Recurso
                         </Text>
                       )}>
+                      <>
+                        <Text style={Styles.text_Introduction}>
+                          {'Primeiro Semestre: '}
+                        </Text>
+                        <Text style={Styles.text}>
+                          {
+                            item.PeriododeExames.EpocanormaleEpocadeRecurso
+                              .PrimeiroSemestre
+                          }
+                        </Text>
+                      </>
                       <List.Item
                         left={() => (
-                          <Text style={Styles.text}>
-                            {'Primeiro Semestre: ' +
-                              item.PeriododeExames.EpocanormaleEpocadeRecurso
-                                .PrimeiroSemestre}
-                          </Text>
-                        )}
-                      />
-                      <List.Item
-                        left={() => (
-                          <Text style={Styles.text}>
-                            {'Segundo Semestre: ' +
-                              item.PeriododeExames.EpocanormaleEpocadeRecurso
-                                .SegundoSemestre}
-                          </Text>
+                          <View style={Styles.container}>
+                            <Text style={Styles.text_Introduction}>
+                              {'Segundo Semestre: '}
+                            </Text>
+                            <Text style={Styles.text}>
+                              {
+                                item.PeriododeExames.EpocanormaleEpocadeRecurso
+                                  .SegundoSemestre
+                              }
+                            </Text>
+                          </View>
                         )}
                       />
                     </List.Accordion>
@@ -236,13 +235,11 @@ const CalendarioLetivo = () => {
                           Época Especial
                         </Text>
                       )}>
-                      <List.Item
-                        left={() => (
-                          <Text style={Styles.text}>
-                            {item.PeriododeExames.EpocaEspecial}
-                          </Text>
-                        )}
-                      />
+                      <View style={Styles.container}>
+                        <Text style={Styles.text}>
+                          {item.PeriododeExames.EpocaEspecial}
+                        </Text>
+                      </View>
                     </List.Accordion>
                   </List.Accordion>
                 </List.Section>
