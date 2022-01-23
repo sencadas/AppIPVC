@@ -41,6 +41,7 @@ export const Init = () => {
       id_curso: await AsyncStorage.getItem('id_curso'),
       num_utilizador: await AsyncStorage.getItem('num_utilizador'),
       unidade_organica: await AsyncStorage.getItem('unidade_organica'),
+      id_utilizador: await AsyncStorage.getItem('id_utilizador'),
     };
     if (user.email !== '') {
       dispatch(fetchAuthSuccess(user));
@@ -50,13 +51,22 @@ export const Init = () => {
 
 export const LoginAction = data => {
   return async dispatch => {
-    const {email, id_curso, nome, num_utilizador, unidade_organica} = data;
-    console.log(data);
+    const {
+      email,
+      id_curso,
+      nome,
+      id_utilizador,
+      num_utilizador,
+      unidade_organica,
+    } = data[0];
 
-    dispatch(fetchAuthSuccess(data));
+    console.log('email' + email);
+
+    dispatch(fetchAuthSuccess(data[0]));
     try {
       await AsyncStorage.setItem('email', email);
       await AsyncStorage.setItem('nome', nome);
+      await AsyncStorage.setItem('id_utilizador', id_utilizador);
       await AsyncStorage.setItem('id_curso', id_curso);
       await AsyncStorage.setItem('num_utilizador', num_utilizador);
       await AsyncStorage.setItem('unidade_organica', unidade_organica);

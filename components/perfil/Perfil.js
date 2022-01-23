@@ -1,52 +1,35 @@
 import React, {useState, useEffect} from 'react';
-// import {getCalendarioLetivo, address} from '../../config';
-import {
-  StyleSheet,
-  View,
-  Text,
-  SafeAreaView,
-  Image,
-  ScrollView,
-} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Styles from './Styles.js';
+import {View, Text, SafeAreaView, Image, ScrollView} from 'react-native';
+import Styles from './assets/styles/Styles.js';
+import {useSelector} from 'react-redux';
 
 const Perfil = () => {
-  const [data, setData] = useState([]);
+  const fetchReduxUser = useSelector(state => state.AuthReducers);
+  const [user, setUser] = useState('');
 
-  //const URL = address + getCalendarioLetivo;
+  useEffect(() => {
+    setUser(fetchReduxUser);
+  }, [fetchReduxUser]);
 
-  // useEffect(() => {
-  //   fetch(URL)
-  //     .then(response => response.json())
-  //     .then(json => {
-  //       console.log(json.planCurr);
-  //       setData(json.planCurr);
-  //     })
-  //     .catch(error => {
-  //       throw error;
-  //     });
-  // }, [URL]);
   return (
     <SafeAreaView style={Styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{alignSelf: 'center'}}>
           <View style={Styles.profileImage}>
             <Image
-              source={require('./perfil.jpeg')}
+              source={require('./assets/imgs/perfil.png')}
               style={Styles.image}
               resizeMode="center"
             />
           </View>
         </View>
         <View style={Styles.infoContainer}>
-          <Text style={Styles.textName}>Gonçalo Afonso</Text>
+          <Text style={Styles.textName}>{user.nome}</Text>
+          <Text style={Styles.text}>{user.unidade_organica}</Text>
+          <Text style={Styles.text}>Aluno Nº {user.num_utilizador}</Text>
           <Text style={Styles.text}>
-            Escola Superior de Gestão do Instituto Politécnico de Viana do
-            Castelo
+            [{user.id_curso}] Engenharia Informática
           </Text>
-          <Text style={Styles.text}>Aluno Nº 23826</Text>
-          <Text style={Styles.text}>[9119] Engenharia Informática</Text>
         </View>
       </ScrollView>
     </SafeAreaView>

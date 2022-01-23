@@ -17,9 +17,9 @@ const Login = () => {
         source={{
           uri: 'http://appipvc.sarapaiva.webtuga.net/',
         }}
-        onMessage={event => {
-          let result = JSON.parse(event.nativeEvent.data);
-          let user = JSON.parse(result[0].json);
+        onMessage={async event => {
+          let result = await JSON.parse(event.nativeEvent.data);
+          let user = await JSON.parse(result[0].json);
           submit(user);
         }}
       />
