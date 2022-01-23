@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ScrollView, Linking} from 'react-native';
 import {Card, Title, Paragraph, Button} from 'react-native-paper';
-import Styles from './Styles.js';
+import Styles from './assets/css/Styles.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProximaAulaCard from './proximaAulaCard';
 import ProximaEpocaCard from './proximaEpocaCard';

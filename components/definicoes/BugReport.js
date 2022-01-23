@@ -18,8 +18,8 @@ const BugReport = () => {
             onChangeText={text => setText(text)}
           />
         </Card.Content>
-        <Card.Actions>
-          <Button style={{alignSelf: 'flex-end'}}>Enviar</Button>
+        <Card.Actions style={{marginLeft: 'auto', marginRight: 'auto'}}>
+          <Button>Enviar</Button>
         </Card.Actions>
       </Card>
     </View>

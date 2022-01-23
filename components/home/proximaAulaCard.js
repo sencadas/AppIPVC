@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {Card, Title, Paragraph, Button} from 'react-native-paper';
-import Styles from './Styles.js';
+import Styles from './assets/css/Styles.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Loading from '../universalComponents/Loading.js';
 import {getHorarios} from '../../store/horarios/actions';
