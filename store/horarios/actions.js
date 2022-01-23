@@ -11,10 +11,13 @@ export const fetchHorarioRequest = () => {
   };
 };
 
-export const fetchHorarioSuccess = data => {
+export const fetchHorarioSuccess = (data, proximaAula) => {
   return {
     type: FETCH_HORARIO_SUCCESS,
-    payload: data,
+    payload: {
+      data: data,
+      proximaAula: proximaAula,
+    },
   };
 };
 
@@ -65,6 +68,16 @@ const parseObject = json => {
   return objectParsed;
 };
 
+const procurarAulaAtual = aulas => {
+  const currentDate = new Date();
+  const aulaProxima = aulas.filter(aula => {
+    if (aula.startDate >= currentDate) {
+      return aula;
+    }
+  });
+  return aulaProxima[0];
+};
+
 export const getHorarios = () => {
   const URL = address + getAulas;
   return dispatch => {
@@ -77,7 +90,10 @@ export const getHorarios = () => {
         for (let i = 0; i < json.aulas.length; i++) {
           horarios.push(await parseObject(json.aulas[i]));
         }
-        dispatch(fetchHorarioSuccess(horarios));
+
+        const proximaAula = await procurarAulaAtual(horarios);
+
+        dispatch(fetchHorarioSuccess(horarios, proximaAula));
       })
       .catch(error => {
         dispatch(fetchHorarioFailure(error));

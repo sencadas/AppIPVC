@@ -2,12 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {List} from 'react-native-paper';
 import {getCalendarioLetivo, address} from '../../config';
 import {View, Text, SafeAreaView, FlatList} from 'react-native';
-import Styles from './Styles.js';
+import Styles from './assets/styles/Styles';
 
 const CalendarioLetivo = () => {
-  const [expanded, setExpanded] = React.useState(true);
-
-  const handlePress = () => setExpanded(!expanded);
   const [data, setData] = useState([]);
 
   const URL = address + getCalendarioLetivo;
@@ -16,7 +13,6 @@ const CalendarioLetivo = () => {
     fetch(URL)
       .then(response => response.json())
       .then(json => {
-        console.log(json.planCurr);
         setData(json.planCurr);
       })
       .catch(error => {
@@ -35,63 +31,84 @@ const CalendarioLetivo = () => {
               <View>
                 <List.Section>
                   <List.Accordion
-                    style={Styles.container}
                     title="Períodos"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Item
                       left={() => (
-                        <Text style={Styles.text}>
-                          {'Primeiro Semestre: ' +
-                            item.Periodos.PrimeiroSemestre}
-                        </Text>
+                        <View style={Styles.container}>
+                          <Text style={Styles.text_Introduction}>
+                            Primeiro Semestre:
+                          </Text>
+                          <Text style={Styles.text}>
+                            {item.Periodos.PrimeiroSemestre}
+                          </Text>
+                        </View>
                       )}
                     />
                     <List.Item
                       left={() => (
-                        <Text style={Styles.text}>
-                          {'Segundo Semestre: ' + item.Periodos.SegundoSemestre}
-                        </Text>
+                        <View style={Styles.container}>
+                          <Text style={Styles.text_Introduction}>
+                            Segundo Semestre:
+                          </Text>
+                          <Text style={Styles.text}>
+                            {item.Periodos.SegundoSemestre}
+                          </Text>
+                        </View>
                       )}
                     />
                   </List.Accordion>
 
                   <List.Accordion
-                    style={Styles.container}
                     title="Paragem Letiva"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Item
                       left={() => (
-                        <Text style={Styles.text}>
-                          {'Natal: ' + item.ParagemLetiva.Natal}
-                        </Text>
+                        <View style={Styles.container}>
+                          <Text style={Styles.text_Introduction}>Natal:</Text>
+                          <Text style={Styles.text}>
+                            {item.ParagemLetiva.Natal}
+                          </Text>
+                        </View>
                       )}
                     />
                     <List.Item
                       left={() => (
-                        <Text style={Styles.text}>
-                          {'Carnaval: ' + item.ParagemLetiva.Carnaval}
-                        </Text>
+                        <View style={Styles.container}>
+                          <Text style={Styles.text_Introduction}>
+                            Carnaval:
+                          </Text>
+                          <Text style={Styles.text}>
+                            {item.ParagemLetiva.Carnaval}
+                          </Text>
+                        </View>
                       )}
                     />
                     <List.Item
                       left={() => (
-                        <Text style={Styles.text}>
-                          {'Páscoa: ' + item.ParagemLetiva.Pascoa}
-                        </Text>
+                        <View style={Styles.container}>
+                          <Text style={Styles.text_Introduction}>Páscoa:</Text>
+                          <Text style={Styles.text}>
+                            {item.ParagemLetiva.Pascoa}
+                          </Text>
+                        </View>
                       )}
                     />
                     <List.Item
                       left={() => (
-                        <Text style={Styles.text}>
-                          {'Semana Académica: ' +
-                            item.ParagemLetiva.SemanaAcademica}
-                        </Text>
+                        <View style={Styles.container}>
+                          <Text style={Styles.text_Introduction}>
+                            Semana Académica:
+                          </Text>
+                          <Text style={Styles.text}>
+                            {item.ParagemLetiva.SemanaAcademica}
+                          </Text>
+                        </View>
                       )}
                     />
                   </List.Accordion>
 
                   <List.Accordion
-                    style={Styles.container}
                     title="Feriados"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Accordion
@@ -125,84 +142,110 @@ const CalendarioLetivo = () => {
                   </List.Accordion>
 
                   <List.Accordion
-                    style={Styles.container}
                     title="Pagamento de Propinas"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Item
                       left={() => (
-                        <Text style={Styles.text}>
-                          {'Primeira prestação: ' +
-                            item.PagamentodePropinas.PrimeiraPrestacao}
-                        </Text>
+                        <View style={Styles.container}>
+                          <Text style={Styles.text_Introduction}>
+                            Primeira prestação:
+                          </Text>
+                          <Text style={Styles.text}>
+                            {item.PagamentodePropinas.PrimeiraPrestacao}
+                          </Text>
+                        </View>
                       )}
                     />
                     <List.Item
                       left={() => (
-                        <Text style={Styles.text}>
-                          {'Restantes Prestações: ' +
-                            item.PagamentodePropinas.Restantesprestacoes}
-                        </Text>
+                        <View style={Styles.container}>
+                          <Text style={Styles.text_Introduction}>
+                            Restantes Prestações:
+                          </Text>
+                          <Text style={Styles.text}>
+                            {item.PagamentodePropinas.Restantesprestacoes}
+                          </Text>
+                        </View>
                       )}
                     />
                   </List.Accordion>
 
                   <List.Accordion
-                    style={Styles.container}
                     title="Dias Comemorativos"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Item
                       left={() => (
-                        <Text style={Styles.text}>
-                          {'IPVC: ' + item.DiasComemorativos.IPVC}
-                        </Text>
+                        <View style={Styles.container}>
+                          <Text style={Styles.text_Introduction}>IPVC:</Text>
+                          <Text style={Styles.text}>
+                            {item.DiasComemorativos.IPVC}
+                          </Text>
+                        </View>
                       )}
                     />
                     <List.Item
                       left={() => (
-                        <Text style={Styles.text}>
-                          {'ESE: ' + item.DiasComemorativos.ESE}
-                        </Text>
+                        <View style={Styles.container}>
+                          <Text style={Styles.text_Introduction}>ESE:</Text>
+                          <Text style={Styles.text}>
+                            {item.DiasComemorativos.ESE}
+                          </Text>
+                        </View>
                       )}
                     />
                     <List.Item
                       left={() => (
-                        <Text style={Styles.text}>
-                          {'ESA: ' + item.DiasComemorativos.ESA}
-                        </Text>
+                        <View style={Styles.container}>
+                          <Text style={Styles.text_Introduction}>ESA:</Text>
+                          <Text style={Styles.text}>
+                            {item.DiasComemorativos.ESA}
+                          </Text>
+                        </View>
                       )}
                     />
                     <List.Item
                       left={() => (
-                        <Text style={Styles.text}>
-                          {'ESTG: ' + item.DiasComemorativos.ESTG}
-                        </Text>
+                        <View style={Styles.container}>
+                          <Text style={Styles.text_Introduction}>ESTG:</Text>
+                          <Text style={Styles.text}>
+                            {item.DiasComemorativos.ESTG}
+                          </Text>
+                        </View>
                       )}
                     />
                     <List.Item
                       left={() => (
-                        <Text style={Styles.text}>
-                          {'ESCE: ' + item.DiasComemorativos.ESCE}
-                        </Text>
+                        <View style={Styles.container}>
+                          <Text style={Styles.text_Introduction}>ESCE:</Text>
+                          <Text style={Styles.text}>
+                            {item.DiasComemorativos.ESCE}
+                          </Text>
+                        </View>
                       )}
                     />
                     <List.Item
                       left={() => (
-                        <Text style={Styles.text}>
-                          {'ESS: ' + item.DiasComemorativos.ESS}
-                        </Text>
+                        <View style={Styles.container}>
+                          <Text style={Styles.text_Introduction}>ESS:</Text>
+                          <Text style={Styles.text}>
+                            {item.DiasComemorativos.ESS}
+                          </Text>
+                        </View>
                       )}
                     />
                     <List.Item
                       left={() => (
-                        <Text style={Styles.text}>
-                          {'ESDL: ' + item.DiasComemorativos.ESDL}
-                        </Text>
+                        <View style={Styles.container}>
+                          <Text style={Styles.text_Introduction}>ESDL:</Text>
+                          <Text style={Styles.text}>
+                            {item.DiasComemorativos.ESDL}
+                          </Text>
+                        </View>
                       )}
                     />
                   </List.Accordion>
 
                   <List.Accordion
-                    style={Styles.container}
                     title="Período de Exames"
                     left={props => <List.Icon {...props} icon="calendar" />}>
                     <List.Accordion
@@ -213,20 +256,32 @@ const CalendarioLetivo = () => {
                       )}>
                       <List.Item
                         left={() => (
-                          <Text style={Styles.text}>
-                            {'Primeiro Semestre: ' +
-                              item.PeriododeExames.EpocanormaleEpocadeRecurso
-                                .PrimeiroSemestre}
-                          </Text>
+                          <View style={Styles.container}>
+                            <Text style={Styles.text_Introduction}>
+                              Primeiro Semestre:
+                            </Text>
+                            <Text style={Styles.text}>
+                              {
+                                item.PeriododeExames.EpocanormaleEpocadeRecurso
+                                  .PrimeiroSemestre
+                              }
+                            </Text>
+                          </View>
                         )}
                       />
                       <List.Item
                         left={() => (
-                          <Text style={Styles.text}>
-                            {'Segundo Semestre: ' +
-                              item.PeriododeExames.EpocanormaleEpocadeRecurso
-                                .SegundoSemestre}
-                          </Text>
+                          <View style={Styles.container}>
+                            <Text style={Styles.text_Introduction}>
+                              Segundo Semestre:
+                            </Text>
+                            <Text style={Styles.text}>
+                              {
+                                item.PeriododeExames.EpocanormaleEpocadeRecurso
+                                  .SegundoSemestre
+                              }
+                            </Text>
+                          </View>
                         )}
                       />
                     </List.Accordion>
@@ -238,9 +293,11 @@ const CalendarioLetivo = () => {
                       )}>
                       <List.Item
                         left={() => (
-                          <Text style={Styles.text}>
-                            {item.PeriododeExames.EpocaEspecial}
-                          </Text>
+                          <View style={Styles.container}>
+                            <Text style={Styles.text}>
+                              {item.PeriododeExames.EpocaEspecial}
+                            </Text>
+                          </View>
                         )}
                       />
                     </List.Accordion>

@@ -1,58 +1,20 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, ScrollView, Linking} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Card, Title, Paragraph, Button} from 'react-native-paper';
 import Styles from './Styles.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import ProximaAulaCard from './proximaAulaCard';
+import ProximaEpocaCard from './proximaEpocaCard';
 
 const Home = () => {
-  const [name, setName] = useState([]);
-
-  try {
-    AsyncStorage.getItem('name').then(value => {
-      setName(value);
-    });
-  } catch (e) {
-    console.log(e);
-  }
-
   return (
     <View>
       <ScrollView>
-        <Text style={Styles.welcome}>Olá {name}</Text>
+        {/* <Text style={Styles.welcome}>Olá {data.AuthReducers.name}</Text> */}
         <Text style={Styles.Title}>Próxima Aula</Text>
-        <Card style={Styles.container}>
-          <Card.Content>
-            <View style={{flexDirection: 'row'}}>
-              <Ionicons name={'book'} size={40} color={'black'} />
-              <Title style={Styles.titleClass}>Projeto 3</Title>
-            </View>
-            <View style={Styles.info}>
-              <Text>Professora Sara Paiva</Text>
-              <Paragraph />
-              <Paragraph>
-                <Ionicons name={'time-outline'} size={14} />
-                15:30 - 16:30
-              </Paragraph>
-              <Paragraph>
-                <Ionicons name={'pin-outline'} size={14} />
-                S.3.3
-              </Paragraph>
-            </View>
-          </Card.Content>
-        </Card>
+        <ProximaAulaCard />
         <Text style={Styles.Title}>Próxima Época de Avaliação</Text>
-        <Card style={Styles.container}>
-          <Card.Content>
-            <View style={{flexDirection: 'row'}}>
-              <Ionicons name={'school'} size={40} color={'black'} />
-              <Title style={Styles.titleClass}>Época Normal</Title>
-            </View>
-            <View style={Styles.info}>
-              <Text>24 de Janeiro a 19 de Fevereiro</Text>
-            </View>
-          </Card.Content>
-        </Card>
+        <ProximaEpocaCard />
 
         <Text style={Styles.Title}>Notícias</Text>
         <Card style={Styles.container}>

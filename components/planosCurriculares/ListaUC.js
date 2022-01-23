@@ -1,13 +1,13 @@
 import React from 'react';
 import {List} from 'react-native-paper';
-import Styles from './Styles';
+import Styles from './assets/styles/Styles';
 import {Text, View} from 'react-native';
 
 const ListaUC = ({data}) => {
   return (
     <View>
       <List.Item
-        title={data.Unidade_Curricular}
+        title={data.nm_unidade_curricular}
         description={
           <View>
             <Text>
