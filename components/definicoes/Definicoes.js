@@ -1,12 +1,17 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {useState} from 'react';
+import HorarioSettings from './horarioSettings';
+import {View} from 'react-native';
+import BugReport from './BugReport';
 
-const Definicoes = () => {
+function Definicoes() {
+  const [checked, setChecked] = useState('first');
+
   return (
-    <View>
-      <Text>Definicoes!</Text>
+    <View style={{padding: 20, marginTop: 40}}>
+      <HorarioSettings />
+      <BugReport />
     </View>
   );
-};
+}
 
 export default Definicoes;
