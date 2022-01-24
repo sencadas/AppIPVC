@@ -3,6 +3,7 @@ import AuthReducers from './auth/reducers';
 import NavigationReducers from './navigation/reducers';
 import HorariosReducers from './horarios/reducers';
 import PlanosCurricularesReducers from './planosCurriculares/reducers';
+import SettingsReducers from './settings/reducers';
 
 import thunk from 'redux-thunk';
 
@@ -13,6 +14,7 @@ const RootReducers = combineReducers({
   AuthReducers,
   NavigationReducers,
   PlanosCurricularesReducers,
+  SettingsReducers,
 });
 
 export const store = createStore(RootReducers, applyMiddleware(thunk));

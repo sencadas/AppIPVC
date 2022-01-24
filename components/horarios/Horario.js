@@ -15,6 +15,11 @@ const Horario = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [aulaPressed, setAulaPressed] = useState('');
 
+  const data = useSelector(state => state.HorariosReducers);
+  const typeOfView = useSelector(
+    state => state.SettingsReducers.HorariotypeOfView,
+  );
+
   let weekViewRef;
 
   //fetching info
@@ -22,8 +27,6 @@ const Horario = () => {
   useEffect(() => {
     dispatch(getHorarios());
   }, [dispatch]);
-
-  const data = useSelector(state => state.HorariosReducers);
 
   const seeAulaModal = useCallback(
     aula => {
@@ -86,7 +89,7 @@ const Horario = () => {
               }}
               events={data.data}
               selectedDate={selectedDate}
-              numberOfDays={1}
+              numberOfDays={typeOfView}
               onEventPress={onEventPress}
               headerStyle={styles.header}
               headerTextStyle={styles.headerText}
@@ -97,7 +100,7 @@ const Horario = () => {
               showNowLine={false}
               timeStep={60}
               startHour={9}
-              weekStartsOn={6}
+              weekStartsOn={1}
               fixedHorizontally={false}
               showTitle={true}
               isRefreshing={false}

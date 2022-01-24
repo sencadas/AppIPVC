@@ -4,7 +4,9 @@ import DrawerNavigation from './DrawerNavigation';
 import Login from '../login/Login';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
-import {Init} from '../../store/auth/actions';
+import {InitAuth} from '../../store/auth/actions';
+import {InitSettings} from '../../store/settings/actions';
+
 import Loading from '../universalComponents/Loading';
 const Routing = () => {
   //Provisório
@@ -15,7 +17,8 @@ const Routing = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(Init());
+    dispatch(InitAuth());
+    dispatch(InitSettings());
   }, [dispatch]);
 
   return (

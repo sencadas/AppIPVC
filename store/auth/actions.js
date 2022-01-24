@@ -32,14 +32,13 @@ export const logout = () => {
   };
 };
 
-export const Init = () => {
+export const InitAuth = () => {
   return async dispatch => {
     dispatch(fetchAuthRequest());
 
     let user = await AsyncStorage.getItem('userLogged');
     let userParsed = await JSON.parse(user);
 
-    console.log(userParsed);
     if (userParsed !== '') {
       dispatch(fetchAuthSuccess(user));
     }
@@ -51,7 +50,6 @@ export const LoginAction = data => {
     let userLogged = await JSON.stringify(data[0]);
 
     dispatch(fetchAuthSuccess(data[0]));
-    console.log(data[0]);
     try {
       await AsyncStorage.setItem('userLogged', userLogged);
     } catch (error) {
