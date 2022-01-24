@@ -102,7 +102,6 @@ export const getPlanosCurriculares = () => {
     fetch(URL, requestOptions)
       .then(response => response.json())
       .then(async json => {
-        console.log(json);
         dispatch(fetchPlanSuccess(await formatData(json)));
       })
       .catch(error => {

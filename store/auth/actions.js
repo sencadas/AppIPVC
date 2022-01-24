@@ -60,7 +60,7 @@ export const LoginAction = data => {
 
 export const LogoutAction = () => {
   return async dispatch => {
-    await AsyncStorage.clear();
+    await AsyncStorage.removeItem('userLogged');
     dispatch(logout());
   };
 };
