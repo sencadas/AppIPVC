@@ -8,7 +8,7 @@ const BugReport = () => {
   return (
     <View style={{marginTop: 70}}>
       <Card>
-        <Card.Title title="Reportar um bug:" />
+        <Card.Title title="Reportar um erro/sugestão:" />
         <Card.Content>
           <TextInput
             style={{backgroundColor: '#ffffff'}}
