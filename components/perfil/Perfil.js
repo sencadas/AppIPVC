@@ -7,10 +7,9 @@ const Perfil = () => {
   const fetchReduxUser = useSelector(state => state.AuthReducers.userLogged);
   const [user, setUser] = useState('');
 
-  console.log(user);
   useEffect(() => {
     setUser(fetchReduxUser);
-  }, [fetchReduxUser]);
+  }, []);
 
   return (
     <SafeAreaView style={Styles.container}>

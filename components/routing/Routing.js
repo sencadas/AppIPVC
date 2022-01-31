@@ -18,6 +18,7 @@ const Routing = () => {
 
   useEffect(() => {
     dispatch(InitAuth());
+    console.log('entrei');
     dispatch(InitSettings());
   }, [dispatch]);
 
