@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {green100} from 'react-native-paper/lib/typescript/styles/colors';
 
 const Styles = StyleSheet.create({
   welcome: {
@@ -10,19 +11,26 @@ const Styles = StyleSheet.create({
     marginTop: 5,
   },
   Title: {
-    fontSize: 18,
+    fontSize: 21,
     fontWeight: 'bold',
     marginLeft: 15,
     color: 'black',
     marginBottom: 5,
+    marginTop: 15,
   },
   container: {
     height: 'auto',
-    backgroundColor: 'white',
     marginLeft: 15,
     marginRight: 15,
     borderRadius: 5,
     marginBottom: 15,
+  },
+  containerSuccess: {
+    width: '100%',
+    backgroundColor: '#bff5c8',
+  },
+  aulaDecorrer: {
+    fontWeight: 'bold',
   },
   titleNews: {
     textAlign: 'left',
