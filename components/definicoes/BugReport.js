@@ -9,6 +9,7 @@ const BugReport = () => {
   const [user, setUser] = useState('');
   const [responseStatus, setresponseStatus] = useState('');
   const [disabledState, setDisabled] = useState(false);
+  const [seeAlert, setseeAlert] = useState(false);
 
   const fetchReduxUser = useSelector(state => state.AuthReducers.userLogged);
 
@@ -49,6 +50,7 @@ const BugReport = () => {
         console.log(error);
       })
       .finally(() => {
+        setseeAlert(true);
         setDisabled(false);
       });
   };
@@ -70,7 +72,7 @@ const BugReport = () => {
         <Card.Actions style={{marginLeft: 'auto', marginRight: 'auto'}}>
           <Button
             disabled={disabledState}
-            mode="outlined"
+            mode="contained"
             onPress={() => {
               submitReport(text);
             }}>
