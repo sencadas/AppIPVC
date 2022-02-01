@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import {Button, Card, TextInput} from 'react-native-paper';
 import {postBug, address} from '../../config';
 import {useSelector} from 'react-redux';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 const BugReport = () => {
   const [text, setText] = useState('');
@@ -41,6 +42,8 @@ const BugReport = () => {
         response.json().then(jsonData => {
           if (jsonData.status === true) {
             setresponseStatus('sucesso');
+            setseeAlert(true);
+            setText('');
           } else {
             setresponseStatus('falha');
           }
@@ -50,7 +53,9 @@ const BugReport = () => {
         console.log(error);
       })
       .finally(() => {
-        setseeAlert(true);
+        setTimeout(() => {
+          setseeAlert(false);
+        }, 3000);
         setDisabled(false);
       });
   };
@@ -59,7 +64,6 @@ const BugReport = () => {
     <View style={{marginTop: 70}}>
       <Card>
         <Card.Title title="Reportar um erro/sugestão:" />
-        {responseStatus === 'empty' && <Card.Title title="Erro Empty" />}
         <Card.Content>
           <TextInput
             style={{backgroundColor: '#ffffff'}}
@@ -80,6 +84,15 @@ const BugReport = () => {
           </Button>
         </Card.Actions>
       </Card>
+      <AwesomeAlert
+        show={seeAlert}
+        showProgress={false}
+        title="Feedback Enviado"
+        message="A sua Contribuição é bastante importante.  Obrigado!"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        useNativeDriver={true}
+      />
     </View>
   );
 };
