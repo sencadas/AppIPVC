@@ -1,6 +1,6 @@
-import {View} from 'react-native';
+import {View, Button, TextInput, Text} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {Button, Card, TextInput} from 'react-native-paper';
+import {Card} from 'react-native-paper';
 import {postBug, address} from '../../config';
 import {useSelector} from 'react-redux';
 import AwesomeAlert from 'react-native-awesome-alerts';
@@ -55,7 +55,7 @@ const BugReport = () => {
       .finally(() => {
         setTimeout(() => {
           setseeAlert(false);
-        }, 3000);
+        }, 2500);
         setDisabled(false);
       });
   };
@@ -64,24 +64,34 @@ const BugReport = () => {
     <View style={{marginTop: 70}}>
       <Card>
         <Card.Title title="Reportar um erro/sugestão:" />
+
         <Card.Content>
           <TextInput
-            style={{backgroundColor: '#ffffff'}}
             multiline={true}
-            numberOfLines={4}
+            style={{
+              borderColor: responseStatus === 'empty' ? '#FF0000' : '#e0e0e0',
+              borderWidth: 1,
+              borderRadius: 5,
+              backgroundColor: '#ffffff',
+            }}
             value={text}
             onChangeText={text => setText(text)}
           />
+          {responseStatus === 'empty' && (
+            <Text style={{color: '#FF0000'}}>
+              {' '}
+              Por favor insira uma mensagem
+            </Text>
+          )}
         </Card.Content>
         <Card.Actions style={{marginLeft: 'auto', marginRight: 'auto'}}>
           <Button
             disabled={disabledState}
-            mode="contained"
+            title="Enviar"
             onPress={() => {
               submitReport(text);
-            }}>
-            Enviar
-          </Button>
+            }}
+          />
         </Card.Actions>
       </Card>
       <AwesomeAlert
