@@ -27,6 +27,7 @@ const Perfil = () => {
           <Text style={Styles.textName}>{user.nome}</Text>
           <Text style={Styles.text}>{user.unidade_organica}</Text>
           <Text style={Styles.text}>Aluno Nº {user.num_utilizador}</Text>
+          <Text style={Styles.text}>Email: {user.email}</Text>
           <Text style={Styles.text}>
             [{user.id_curso}] Engenharia Informática
           </Text>

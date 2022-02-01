@@ -16,7 +16,7 @@ const CalendarioLetivo = () => {
     fetch(URL)
       .then(response => response.json())
       .then(json => {
-        setData(json.planCurr);
+        setData(json.data);
       })
       .catch(error => {
         throw error;

@@ -19,14 +19,15 @@ const Horario = () => {
   const typeOfView = useSelector(
     state => state.SettingsReducers.HorariotypeOfView,
   );
+  const fetchReduxUser = useSelector(state => state.AuthReducers.userLogged);
 
   let weekViewRef;
 
   //fetching info
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getHorarios());
-  }, [dispatch]);
+    dispatch(getHorarios(fetchReduxUser));
+  }, [dispatch, fetchReduxUser]);
 
   const seeAulaModal = useCallback(
     aula => {
@@ -57,7 +58,6 @@ const Horario = () => {
   };
 
   const changeDate = date => {
-    console.log(date);
     weekViewRef.goToDate(date, true);
     setSelectedDate(date);
   };

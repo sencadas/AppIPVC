@@ -1,4 +1,4 @@
-import {getAulas, address} from '../../config';
+import {getAulas} from '../../config';
 import {
   FETCH_HORARIO_FAILURE,
   FETCH_HORARIO_REQUEST,
@@ -30,12 +30,11 @@ export const fetchHorarioFailure = error => {
 
 //se type = 1 retorna a data senão retorna a hora e minutos
 const parseDate = (stringDate, type) => {
-  let hours = stringDate.substr(11, 2);
-  let minutes = stringDate.substr(14, 2);
-
-  let day = stringDate.substring(0, 2);
-  let month = stringDate.substring(3, 5);
-  let year = stringDate.substr(6, 4);
+  let year = stringDate.slice(0, 4);
+  let month = stringDate.slice(5, 7);
+  let day = stringDate.slice(8, 10);
+  let hours = stringDate.slice(11, 13);
+  let minutes = stringDate.slice(14, 16);
 
   const date = new Date(year, month - 1, day, hours, minutes);
 
@@ -48,21 +47,20 @@ const parseDate = (stringDate, type) => {
 };
 //parametros anteriores (hours e minutes).
 
-const parseObject = json => {
+const parseObject = (json, id) => {
   const objectParsed = {
-    _id: json._id,
-    color: json.color,
-    description: json.description,
-    id: json.id,
-    idEstado: json.idEstado,
-    professor: json.professor,
-    summary: json.summary,
-    tipoAula: json.tipoAula,
-    userProf: json.userProf,
-    startDate: parseDate(json.startDate, 1),
-    endDate: parseDate(json.endDate, 1),
-    startHour: parseDate(json.startDate, 0),
-    endHour: parseDate(json.endDate, 0),
+    id: id,
+    color: json.cor_valor,
+    description: json.sigla,
+    idEstado: json.id_estado,
+    professor: json.nomesDocentes,
+    summary: json.sala,
+    tipoAula: json.hor_nome_turno,
+    userProf: json.emailsDocentes,
+    startDate: parseDate(json.data_hora_ini, 1),
+    endDate: parseDate(json.data_hora_fim, 1),
+    startHour: parseDate(json.data_hora_ini, 0),
+    endHour: parseDate(json.data_hora_fim, 0),
   };
 
   return objectParsed;
@@ -78,17 +76,42 @@ const procurarAulaAtual = aulas => {
   return aulaProxima[0];
 };
 
-export const getHorarios = () => {
-  const URL = address + getAulas;
+export const getHorarios = user => {
+  const URL = getAulas;
+  console.log(user);
+  var details = {
+    webservice: 'GetHorarioByAluno',
+    apikey: 'D0032758-23F9-4B5C-9235-7920BEE37E3C',
+    parametros: `{"cd_lectivo":"202122","semestre":"S1","cd_aluno":"${user.num_utilizador}"}`,
+  };
+
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + '=' + encodedValue);
+  }
+  formBody = formBody.join('&');
+
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded',
+      referer: 'functions',
+    },
+    body: formBody,
+  };
+
   return dispatch => {
     dispatch(fetchHorarioRequest());
-    fetch(URL)
+    fetch(URL, requestOptions)
       .then(response => response.json())
       .then(async json => {
         let horarios = [];
 
-        for (let i = 0; i < json.aulas.length; i++) {
-          horarios.push(await parseObject(json.aulas[i]));
+        for (let i = 0; i < json.length; i++) {
+          let eventId = i;
+          horarios.push(await parseObject(json[i], eventId));
         }
 
         const proximaAula = await procurarAulaAtual(horarios);
