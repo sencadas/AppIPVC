@@ -11,20 +11,25 @@ import {LogoutAction} from '../../store/auth/actions';
 import {ChangeNavigationAction} from '../../store/navigation/actions';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Text} from 'react-native-paper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useSelector} from 'react-redux';
+import {useEffect} from 'react';
+
+const parseFirstName = (name, setName) => {
+  let FirstName = name.substr(0, name.indexOf(' '));
+  setName(FirstName);
+};
 
 const DrawerContent = props => {
   const {navigation, rotaAtual} = props;
   const [name, setName] = useState([]);
 
-  try {
-    AsyncStorage.getItem('name').then(value => {
-      setName(value);
-    });
-  } catch (e) {
-    console.log(e);
-  }
+  const fetchedNome = useSelector(state => state.AuthReducers.userLogged.nome);
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    parseFirstName(fetchedNome, setName);
+  }, [fetchedNome]);
 
   return (
     <View style={styles.Container}>

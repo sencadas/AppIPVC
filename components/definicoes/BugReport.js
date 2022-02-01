@@ -67,6 +67,7 @@ const BugReport = () => {
         <Card.Content>
           <TextInput
             multiline={true}
+            numberOfLines={4}
             style={{
               borderColor: responseStatus === 'empty' ? '#FF0000' : '#e0e0e0',
               borderWidth: 1,
