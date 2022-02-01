@@ -13,6 +13,8 @@ const Home = () => {
         {/* <Text style={Styles.welcome}>Olá {data.AuthReducers.name}</Text>
         <Text style={Styles.Title}>Próxima Aula</Text>
         <ProximaAulaCard /> */}
+        <Text style={Styles.Title}>Próxima Aula</Text>
+        <ProximaAulaCard />
         <Text style={Styles.Title}>Próxima Época de Avaliação</Text>
         <ProximaEpocaCard />
 

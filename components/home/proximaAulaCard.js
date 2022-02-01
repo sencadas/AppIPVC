@@ -9,9 +9,10 @@ import {useDispatch, useSelector} from 'react-redux';
 
 const ProximaAulaCard = () => {
   const dispatch = useDispatch();
+  const fetchReduxUser = useSelector(state => state.AuthReducers.userLogged);
   useEffect(() => {
-    dispatch(getHorarios());
-  }, [dispatch]);
+    dispatch(getHorarios(fetchReduxUser));
+  }, [dispatch, fetchReduxUser]);
 
   const data = useSelector(state => state.HorariosReducers);
 
