@@ -68,12 +68,22 @@ const parseObject = (json, id) => {
 
 const procurarAulaAtual = aulas => {
   const currentDate = new Date();
+  //Filtra as aulas futuras
   const aulaProxima = aulas.filter(aula => {
-    if (aula.startDate >= currentDate) {
+    if (currentDate <= aula.endDate) {
       return aula;
     }
   });
-  return aulaProxima[0];
+  //Variavel para saber se a aula está a decorrer
+  let isAulaAtual = false;
+  if (aulaProxima.length > 0) {
+    isAulaAtual = currentDate >= aulaProxima[0].startDate;
+  }
+  //retorna a apenas a aula mais proxima pois temos um array ordenado e a variavel se está a decorrer ou não
+  return {
+    aula: aulaProxima[0],
+    isAulaAtual: isAulaAtual,
+  };
 };
 
 export const getHorarios = user => {
