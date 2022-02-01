@@ -40,7 +40,7 @@ export const InitAuth = () => {
     let userParsed = await JSON.parse(user);
 
     if (userParsed !== '') {
-      dispatch(fetchAuthSuccess(user));
+      dispatch(fetchAuthSuccess(userParsed));
     }
   };
 };
