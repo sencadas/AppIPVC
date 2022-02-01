@@ -64,7 +64,6 @@ const BugReport = () => {
     <View style={{marginTop: 70}}>
       <Card>
         <Card.Title title="Reportar um erro/sugestão:" />
-
         <Card.Content>
           <TextInput
             multiline={true}
