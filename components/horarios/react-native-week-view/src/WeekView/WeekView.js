@@ -472,6 +472,10 @@ export default class WeekView extends Component {
             <VirtualizedList
               data={initialDates}
               getItem={(data, index) => data[index]}
+              maintainVisibleContentPosition={{
+                autoscrollToTopThreshold: 10,
+                minIndexForVisible: 1,
+              }}
               getItemCount={data => data.length}
               getItemLayout={(_, index) => this.getListItemLayout(index)}
               keyExtractor={item => item}
