@@ -73,12 +73,12 @@ const procurarProxima = aulas => {
   return aulaProxima[0];
 };
 
-export const getPlanosCurriculares = () => {
+export const getPlanosCurriculares = user => {
   const URL = getPlanoCurricular;
   var details = {
     webservice: 'GetPlanoEstudosByCurso',
     apikey: 'D0032758-23F9-4B5C-9235-7920BEE37E3C',
-    parametros: '{"cd_curso":"9119"}',
+    parametros: `{"cd_curso":"${user.id_curso}"}`,
   };
 
   var formBody = [];

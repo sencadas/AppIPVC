@@ -10,11 +10,12 @@ import {getPlanosCurriculares} from '../../store/planosCurriculares/actions';
 const PlanosCurriculares = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const onChangeSearch = query => setSearchQuery(query);
+  const fetchReduxUser = useSelector(state => state.AuthReducers.userLogged);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getPlanosCurriculares());
-  }, [dispatch]);
+    dispatch(getPlanosCurriculares(fetchReduxUser));
+  }, [dispatch, fetchReduxUser]);
 
   const data = useSelector(state => state.PlanosCurricularesReducers);
 

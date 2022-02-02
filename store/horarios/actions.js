@@ -88,7 +88,6 @@ const procurarAulaAtual = aulas => {
 
 export const getHorarios = user => {
   const URL = getAulas;
-  console.log(user);
   var details = {
     webservice: 'GetHorarioByAluno',
     apikey: 'D0032758-23F9-4B5C-9235-7920BEE37E3C',
