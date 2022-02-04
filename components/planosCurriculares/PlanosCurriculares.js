@@ -4,12 +4,12 @@ import ListaAnos from './ListaAnos';
 import Styles from './assets/styles/Styles';
 import Loading from '../universalComponents/Loading.js';
 import {SafeAreaView, View, FlatList} from 'react-native';
-import {connect, useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getPlanosCurriculares} from '../../store/planosCurriculares/actions';
 
 const PlanosCurriculares = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const onChangeSearch = query => setSearchQuery(query);
+  const [arrayFiltered, setArrayFiltered] = useState('');
   const fetchReduxUser = useSelector(state => state.AuthReducers.userLogged);
 
   const dispatch = useDispatch();
@@ -18,6 +18,49 @@ const PlanosCurriculares = () => {
   }, [dispatch, fetchReduxUser]);
 
   const data = useSelector(state => state.PlanosCurricularesReducers);
+
+  const searchPlano = query => {
+    let infoParsed = [];
+
+    data.data.forEach(Ano => {
+      let filteredAno = {
+        ano: Ano.ano,
+        UCs: {
+          primeiroSemestre: [],
+          segundoSemestre: [],
+        },
+      };
+
+      const filteredPrimeiroSemestre = Ano.UCs.primeiroSemestre.filter(
+        curso => {
+          return curso.nm_unidade_curricular.includes(query);
+        },
+      );
+
+      const filteredSegundoSemestre = Ano.UCs.segundoSemestre.filter(curso => {
+        return curso.nm_unidade_curricular.includes(query);
+      });
+
+      if (
+        filteredPrimeiroSemestre.length !== 0 ||
+        filteredSegundoSemestre.length !== 0
+      ) {
+        filteredAno.UCs.primeiroSemestre = filteredPrimeiroSemestre;
+
+        filteredAno.UCs.segundoSemestre = filteredSegundoSemestre;
+
+        infoParsed.push(filteredAno);
+      }
+    });
+
+    setArrayFiltered(infoParsed);
+  };
+
+  const onChangeSearch = query => {
+    console.log(query);
+    setSearchQuery(query);
+    searchPlano(query);
+  };
 
   return (
     <>
@@ -34,7 +77,7 @@ const PlanosCurriculares = () => {
               />
             </View>
             <FlatList
-              data={data.data}
+              data={searchQuery === '' ? data.data : arrayFiltered}
               keyExtractor={(item, index) => {
                 return index.toString();
               }}
