@@ -17,7 +17,7 @@ const Perfil = () => {
         <View style={{alignSelf: 'center'}}>
           <View style={Styles.profileImage}>
             <Image
-              source={require('./assets/imgs/perfil.png')}
+              source={require('../../resources/images/perfil.jpeg')}
               style={Styles.image}
               resizeMode="center"
             />
