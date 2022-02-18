@@ -1,6 +1,7 @@
 import React from 'react';
 import {List} from 'react-native-paper';
-import Styles from './assets/styles/Styles';
+import Styles from '../../resources/styles/customStyles/planosCurriculares_Style';
+
 import {Text, View} from 'react-native';
 
 const ListaUC = ({data}) => {

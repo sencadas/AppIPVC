@@ -1,8 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {View, Text, ScrollView, Linking} from 'react-native';
 import {Card, Title, Paragraph, Button} from 'react-native-paper';
-import Styles from './assets/css/Styles.js';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Styles from '../../resources/styles/customStyles/home_Style';
 import ProximaAulaCard from './proximaAulaCard';
 import ProximaEpocaCard from './proximaEpocaCard';
 
@@ -10,9 +9,6 @@ const Home = () => {
   return (
     <View>
       <ScrollView>
-        {/* <Text style={Styles.welcome}>Olá {data.AuthReducers.name}</Text>
-        <Text style={Styles.Title}>Próxima Aula</Text>
-        <ProximaAulaCard /> */}
         <Text style={Styles.Title}>Próxima Aula</Text>
         <ProximaAulaCard />
         <Text style={Styles.Title}>Próxima Época de Avaliação</Text>

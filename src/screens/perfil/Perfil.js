@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, SafeAreaView, Image, ScrollView} from 'react-native';
-import Styles from './assets/styles/Styles.js';
+import Styles from '../../resources/styles/customStyles/perfil_Style';
 import {useSelector} from 'react-redux';
+import R from '../../resources/index';
 
 const Perfil = () => {
   const fetchReduxUser = useSelector(state => state.AuthReducers.userLogged);
@@ -17,7 +18,7 @@ const Perfil = () => {
         <View style={{alignSelf: 'center'}}>
           <View style={Styles.profileImage}>
             <Image
-              source={require('../../resources/images/perfil.jpeg')}
+              source={R.images.perfil}
               style={Styles.image}
               resizeMode="center"
             />

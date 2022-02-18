@@ -7,8 +7,8 @@ import {
 } from '@react-navigation/drawer';
 import {StyleSheet, View} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {LogoutAction} from '../../store/auth/actions';
-import {ChangeNavigationAction} from '../../store/navigation/actions';
+import {LogoutAction} from '../store/auth/actions';
+import {ChangeNavigationAction} from '../store/navigation/actions';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Text} from 'react-native-paper';
 import {useSelector} from 'react-redux';

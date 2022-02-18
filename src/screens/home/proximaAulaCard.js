@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {Card, Title, Paragraph} from 'react-native-paper';
-import Styles from './assets/css/Styles.js';
+import Styles from '../../resources/styles/customStyles/home_Style';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Loading from '../universalComponents/Loading.js';
+import Loading from '../../library/components/Loading';
 import {getHorarios} from '../../store/horarios/actions';
 import {useDispatch, useSelector} from 'react-redux';
 

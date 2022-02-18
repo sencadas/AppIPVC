@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {Card, Title, Paragraph, Button} from 'react-native-paper';
-import Styles from './assets/css/Styles.js';
+import Styles from '../../resources/styles/customStyles/home_Style';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const ProximaAulaCard = ({data}) => {

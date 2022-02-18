@@ -1,14 +1,14 @@
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import PaginaInicial from '../home/Home';
-import Perfil from '../perfil/Perfil';
-import Definicoes from '../definicoes/Definicoes';
-import Horario from '../horarios/Horario';
-import CalendarioLetivo from '../calendarioLetivo/CalendarioLetivo';
-import PlanosCurriculares from '../planosCurriculares/PlanosCurriculares';
+import PaginaInicial from '../screens/home/Home';
+import Perfil from '../screens/perfil/Perfil';
+import Definicoes from '../screens/definicoes/Definicoes';
+import Horario from '../screens/horarios/Horario';
+import CalendarioLetivo from '../screens/calendarioLetivo/CalendarioLetivo';
+import PlanosCurriculares from '../screens/planosCurriculares/PlanosCurriculares';
 import {useDispatch} from 'react-redux';
-import {ChangeNavigationAction} from '../../store/navigation/actions';
+import {ChangeNavigationAction} from '../store/navigation/actions';
 
 const Tab = createBottomTabNavigator();
 

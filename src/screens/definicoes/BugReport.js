@@ -1,7 +1,7 @@
 import {View, Button, TextInput, Text} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {Card} from 'react-native-paper';
-import {postBug, address} from '../../config';
+import {postBug, address} from '../../library/config';
 import {useSelector} from 'react-redux';
 import AwesomeAlert from 'react-native-awesome-alerts';
 

@@ -1,4 +1,5 @@
-import {getPlanoCurricular, address} from '../../config';
+import {getPlanoCurricular, address} from '../../library/config';
+
 import {
   FETCH_PLAN_FAILURE,
   FETCH_PLAN_REQUEST,

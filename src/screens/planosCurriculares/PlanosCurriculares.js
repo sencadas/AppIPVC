@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {List, Searchbar} from 'react-native-paper';
 import ListaAnos from './ListaAnos';
-import Styles from './assets/styles/Styles';
-import Loading from '../universalComponents/Loading.js';
+import Styles from '../../resources/styles/customStyles/planosCurriculares_Style';
+
+import Loading from '../../library/components/Loading';
+
 import {SafeAreaView, View, FlatList} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getPlanosCurriculares} from '../../store/planosCurriculares/actions';

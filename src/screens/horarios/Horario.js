@@ -1,10 +1,11 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
 import {Portal, Provider} from 'react-native-paper';
-import styles from './styles/horarioStyle';
-// components used
+import styles from '../../resources/styles/customStyles/horario_Style';
+
 import WeekView from './react-native-week-view/index.js';
-import Loading from '../universalComponents/Loading.js';
+import Loading from '../../library/components/Loading';
+
 import ModalSingleAula from './modalSingleAula';
 import ModalDatePicker from './modalDatePicker';
 import {getHorarios} from '../../store/horarios/actions';

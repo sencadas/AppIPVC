@@ -1,5 +1,5 @@
 const images = {
-  perfil: require('./images/perfil.png'),
+  perfil: require('./perfil.png'),
 };
 
 export default images;

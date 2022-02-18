@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {List} from 'react-native-paper';
-import Styles from './assets/styles/Styles';
+import Styles from '../../resources/styles/customStyles/planosCurriculares_Style';
+
 import ListaUC from './ListaUC';
 import {FlatList, View} from 'react-native';
 

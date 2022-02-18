@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {List} from 'react-native-paper';
-import {getCalendarioLetivo, address} from '../../config';
+import {getCalendarioLetivo, address} from '../../library/config';
 import {View, Text, SafeAreaView, FlatList} from 'react-native';
-import Styles from './assets/styles/Styles';
-import Loading from '../universalComponents/Loading.js';
+import Styles from '../../resources/styles/customStyles/calendarioLetivo_Style';
+import Loading from '../../library/components/Loading';
 
 const CalendarioLetivo = () => {
   const [data, setData] = useState([]);

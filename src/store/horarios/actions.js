@@ -1,4 +1,4 @@
-import {getAulas} from '../../config';
+import {getAulas} from '../../library/config';
 import {
   FETCH_HORARIO_FAILURE,
   FETCH_HORARIO_REQUEST,
